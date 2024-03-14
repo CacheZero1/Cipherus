@@ -4,7 +4,7 @@
   A Library of Encryptions
 </p>
 
-[![Release](https://img.shields.io/github/release/CacheZero1/Cipherus.svg)]()
+[![Release](https://img.shields.io/github/release/CacheZero1/Cipherus.svg)](https://github.com/CacheZero1/Cipherus/release)
 [![Downloads](https://img.shields.io/github/downloads/CacheZero1/Cipherus/total.svg)]()
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
