@@ -6,7 +6,7 @@
 
 [![Release](https://img.shields.io/github/release/CacheZero1/Cipherus.svg)]()
 [![Downloads](https://img.shields.io/github/downloads/CacheZero1/Cipherus/total.svg)]()
-[![License](https://img.shields.io/github/license/CacheZero1/Cipherus.svg)]() 
+[![License](https://img.shields.io/github/license/CacheZero1/Cipherus.svg)](./LICENSE.md) 
 https://github.com/
 
 ## Index
