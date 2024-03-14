@@ -7,8 +7,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -67,7 +69,9 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
         // Populate Panel
         createPositioningComponents();
-        createFunctionalComponents();
+        try {
+            createFunctionalComponents();
+        } catch (IOException e) {}
         addGUIComponents();
 
     }
@@ -115,7 +119,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
     }
 
-    private void createFunctionalComponents() {
+    private void createFunctionalComponents() throws IOException {
 
         // JLabels
         formulaLabel = new JLabel("Formula:");
@@ -150,18 +154,20 @@ public class CryptorPanel extends JPanel implements ActionListener {
         startButton.setFont(unitedFont);
 
         // Action selectors
-        encryptRadioButton = new JRadioButton("Encrypt", new ImageIcon(getClass().getResource("." + filePathSep + ".." + filePathSep + "images" + filePathSep + "encrypt_b.png")));
+        encryptRadioButton = new JRadioButton("Encrypt", new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "encrypt_b.png").toString()))));
         encryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         encryptRadioButton.setFocusPainted(false);
         encryptRadioButton.addActionListener(this);
         encryptRadioButton.setSelected(true);
         encryptRadioButton.setFont(unitedFont);
 
-        decryptRadioButton = new JRadioButton("Decrypt", new ImageIcon(getClass().getResource("." + filePathSep + ".." + filePathSep + "images" + filePathSep + "decrypt_b.png")));
+        decryptRadioButton = new JRadioButton("Decrypt", new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "decrypt_b.png").toString()))));
         decryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         decryptRadioButton.setFocusPainted(false);
         decryptRadioButton.addActionListener(this);
         decryptRadioButton.setFont(unitedFont);
+
+        System.out.println(getClass().getResourceAsStream(FileSystems.getDefault().getPath(".", "..", "images", "decrypt_b.png").toString()));
 
         radioButtonOptionGroup = new ButtonGroup();
         radioButtonOptionGroup.add(encryptRadioButton);
