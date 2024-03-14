@@ -42,7 +42,7 @@ Here's what you can expect from Cipherus:
 
 ## Contributors
 
-* [spdqbr](https://github.com/spdqbr), for allowing the use of his [Algorithm]() file.
+* [spdqbr](https://github.com/spdqbr), for allowing the use of his [Algorithm](https://github.com/CacheZero1/Cipherus/blob/master/src/euorg/nuvoprojects/cachezero1/Algorithm.java) file.
 
 
 ## License
