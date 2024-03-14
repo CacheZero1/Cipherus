@@ -154,20 +154,18 @@ public class CryptorPanel extends JPanel implements ActionListener {
         startButton.setFont(unitedFont);
 
         // Action selectors
-        encryptRadioButton = new JRadioButton("Encrypt", new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "encrypt_b.png").toString()))));
+        encryptRadioButton = new JRadioButton("Encrypt"/* , new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "encrypt_b.png").toString())))*/);
         encryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         encryptRadioButton.setFocusPainted(false);
         encryptRadioButton.addActionListener(this);
         encryptRadioButton.setSelected(true);
         encryptRadioButton.setFont(unitedFont);
 
-        decryptRadioButton = new JRadioButton("Decrypt", new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "decrypt_b.png").toString()))));
+        decryptRadioButton = new JRadioButton("Decrypt"/* , new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "decrypt_b.png").toString())))*/);
         decryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         decryptRadioButton.setFocusPainted(false);
         decryptRadioButton.addActionListener(this);
         decryptRadioButton.setFont(unitedFont);
-
-        System.out.println(getClass().getResourceAsStream(FileSystems.getDefault().getPath(".", "..", "images", "decrypt_b.png").toString()));
 
         radioButtonOptionGroup = new ButtonGroup();
         radioButtonOptionGroup.add(encryptRadioButton);
@@ -238,7 +236,6 @@ public class CryptorPanel extends JPanel implements ActionListener {
         if (e.getSource() == startButton) {
 
             // TODO: add encryption
-            System.out.println("Beep Boop! Encrypted!");
 
             if (encryptRadioButton.isSelected()) {
 

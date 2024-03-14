@@ -89,12 +89,6 @@ public class Cryptor {
 
         }
 
-        encrypted.forEach((key, value) -> {
-
-            System.out.println(key + ": " + value);
-
-        });
-
         return encrypted;
 
     }
