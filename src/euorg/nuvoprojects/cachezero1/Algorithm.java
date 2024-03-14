@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Algorithm {
     /**
-     * Credit: 
+     * Credit: spdqbr
      * 
      * Takes a string of numbers and mathematical operators and attempts
      * to evaluate it using the standard PEMDAS order of operations
