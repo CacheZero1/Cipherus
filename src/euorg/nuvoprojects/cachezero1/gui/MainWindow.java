@@ -6,11 +6,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import java.nio.file.FileSystems;
 import java.awt.BorderLayout;
 
-import javax.imageio.ImageIO;
+//import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 //import javax.swing.JMenu; // TODO: add menu
@@ -61,7 +61,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Settings with exception chance
         try {
-            this.setIconImage((BufferedImage) ImageIO.read(getClass().getResourceAsStream(".." + filePathSep + "images" + filePathSep + "icon.jpeg")));
+            //this.setIconImage((BufferedImage) ImageIO.read(getClass().getResourceAsStream(".." + filePathSep + "images" + filePathSep + "icon.jpeg"))); // TODO: add icon
         } catch (Exception e) {}
 
         // Instances
