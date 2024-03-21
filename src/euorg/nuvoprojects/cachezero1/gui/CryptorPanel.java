@@ -10,12 +10,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -71,7 +71,9 @@ public class CryptorPanel extends JPanel implements ActionListener {
         createPositioningComponents();
         try {
             createFunctionalComponents();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+        }
         addGUIComponents();
 
     }
@@ -154,14 +156,16 @@ public class CryptorPanel extends JPanel implements ActionListener {
         startButton.setFont(unitedFont);
 
         // Action selectors
-        encryptRadioButton = new JRadioButton("Encrypt"/* , new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "encrypt_b.png").toString())))*/);
+        encryptRadioButton = new JRadioButton("Encrypt");
+        encryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/encrypt_b.png")));
         encryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         encryptRadioButton.setFocusPainted(false);
         encryptRadioButton.addActionListener(this);
         encryptRadioButton.setSelected(true);
         encryptRadioButton.setFont(unitedFont);
 
-        decryptRadioButton = new JRadioButton("Decrypt"/* , new ImageIcon(ImageIO.read(getClass().getResourceAsStream(FileSystems.getDefault().getPath("images", "decrypt_b.png").toString())))*/);
+        decryptRadioButton = new JRadioButton("Decrypt");
+        decryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/decrypt_b.png")));
         decryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         decryptRadioButton.setFocusPainted(false);
         decryptRadioButton.addActionListener(this);
@@ -235,8 +239,6 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
         if (e.getSource() == startButton) {
 
-            // TODO: add encryption
-
             if (encryptRadioButton.isSelected()) {
 
                 try {
@@ -246,7 +248,10 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     String encrypted = cryptor.encrypt(normalTextArea.getText(), cryptor.algorithm(formulaField.getText()));
                     cipheredTextArea.setText(encrypted);
                     
-                } catch (Exception encryptionError) {//TODO: add error jpanel
+                } catch (Exception encryptionError) {
+
+                    JOptionPane.showMessageDialog(null, "A calculation error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+
                 }
                 
             } else if (decryptRadioButton.isSelected()) {
@@ -259,7 +264,9 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     cipheredTextArea.setText(decrypted);
 
                 } catch (Exception decryptionError) {
-                    // TODO: handle exception
+                    
+                    JOptionPane.showMessageDialog(null, "A calculation error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+
                 }
 
             }

@@ -1,7 +1,6 @@
 package euorg.nuvoprojects.cachezero1;
 
 import java.awt.Font;
-
 import euorg.nuvoprojects.cachezero1.gui.MainWindow;
 
 public class Main {
@@ -14,6 +13,7 @@ public class Main {
         */
 
         String version = "v0.1";
+
 
         MainWindow mainWindow = new MainWindow(version, new Font(null, Font.PLAIN, 20), false);
         mainWindow.setVisible(true);

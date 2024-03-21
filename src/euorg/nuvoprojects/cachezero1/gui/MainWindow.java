@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.image.BufferedImage;
 import java.nio.file.FileSystems;
 import java.awt.BorderLayout;
 
@@ -61,8 +60,10 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Settings with exception chance
         try {
-            //this.setIconImage((BufferedImage) ImageIO.read(getClass().getResourceAsStream(".." + filePathSep + "images" + filePathSep + "icon.jpeg"))); // TODO: add icon
-        } catch (Exception e) {}
+            //this.setIconImage(ImageIO.read(getClass().getResource("/images/"))); // TODO: add icon
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+        }
 
         // Instances
         cryptorPanel = new CryptorPanel(font, darkMode);
