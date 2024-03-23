@@ -9,11 +9,13 @@ import java.awt.event.ActionListener;
 import java.nio.file.FileSystems;
 import java.awt.BorderLayout;
 
-//import javax.imageio.ImageIO;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-//import javax.swing.JMenu; // TODO: add menu
-//import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -24,8 +26,22 @@ public class MainWindow extends JFrame implements ActionListener {
     // private Font unitedFont;
 
     // Components (JMenu)
-    // private JMenuBar menuBar;
-    // private JMenu menu;
+    private JMenuBar menuBar;
+    //
+    private JMenu cipherusMenu;
+    private JMenuItem saveTextMenuItem;
+    private JMenuItem saveImageMenuItem;
+    private JMenuItem aboutMenuItem;
+    private JMenuItem exitMenuItem;
+    //
+    private JMenu settingsMenu;
+    private JMenuItem fontMenuItem;
+    private JMenuItem colourMenuItem;
+    private JMenuItem languageMenuItem;
+    //
+    private JMenu helpMenu;
+    private JMenuItem encodersHelpMenuItem;
+    private JMenuItem applicationHelpMenuItem;
 
     // Components (Positioning)
     JPanel leftPanel;
@@ -60,9 +76,9 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Settings with exception chance
         try {
-            //this.setIconImage(ImageIO.read(getClass().getResource("/images/"))); // TODO: add icon
+            this.setIconImage(ImageIO.read(getClass().getResource("/images/icon_128px.png")));
         } catch (Exception e) {
-            //JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
         }
 
         // Instances
@@ -78,7 +94,68 @@ public class MainWindow extends JFrame implements ActionListener {
     }
 
 
-    private void createMenu() {}
+    private void createMenu() {
+
+        // Main Menus
+        menuBar = new JMenuBar();
+
+        cipherusMenu = new JMenu("Cipherus");
+        settingsMenu = new JMenu("Settings");
+        helpMenu = new JMenu("Help");
+
+        // Cipherus Menu
+        saveTextMenuItem = new JMenuItem("Save Text");
+        saveImageMenuItem = new JMenuItem("Save Image");
+        aboutMenuItem = new JMenuItem("About");
+        exitMenuItem = new JMenuItem("Exit");
+        
+        // Settings Menu
+        fontMenuItem = new JMenuItem("Font");
+        colourMenuItem = new JMenuItem("Colour");
+        languageMenuItem = new JMenuItem("Language");
+
+        // Help
+        encodersHelpMenuItem = new JMenuItem("Ciphers");
+        applicationHelpMenuItem = new JMenuItem("Navigation");
+
+
+        // ActionListeners //TODO: add functionalities to other menus
+        saveTextMenuItem.addActionListener(this);
+        saveImageMenuItem.addActionListener(this);
+        aboutMenuItem.addActionListener(this);
+        exitMenuItem.addActionListener(e -> { System.exit(0); });
+
+        fontMenuItem.addActionListener(this);
+        colourMenuItem.addActionListener(this);
+        languageMenuItem.addActionListener(this);
+
+        encodersHelpMenuItem.addActionListener(this);
+        applicationHelpMenuItem.addActionListener(this);
+
+
+        // Icons //TODO: add icons
+
+
+        // Addition & visibility
+        cipherusMenu.add(saveTextMenuItem);
+        cipherusMenu.add(saveImageMenuItem);
+        cipherusMenu.add(aboutMenuItem);
+        cipherusMenu.add(exitMenuItem);
+
+        settingsMenu.add(fontMenuItem);
+        settingsMenu.add(colourMenuItem);
+        settingsMenu.add(languageMenuItem);
+
+        helpMenu.add(encodersHelpMenuItem);
+        helpMenu.add(applicationHelpMenuItem);
+
+        menuBar.add(cipherusMenu);
+        menuBar.add(settingsMenu);
+        menuBar.add(helpMenu);
+
+        this.setJMenuBar(menuBar);
+
+    }
 
     private void createPositioningComponents() {
 
