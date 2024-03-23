@@ -12,7 +12,7 @@ public class Main {
          * License: CC-BY
         */
 
-        String version = "v0.1";
+        String version = "v0.3";
 
 
         MainWindow mainWindow = new MainWindow(version, new Font(null, Font.PLAIN, 20), false);
