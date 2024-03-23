@@ -17,6 +17,6 @@ public class Main {
 
         MainWindow mainWindow = new MainWindow(version, new Font(null, Font.PLAIN, 20), false);
         mainWindow.setVisible(true);
-        
+
     }
 }

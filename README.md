@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/images/icon_512px.png" width="128"/>
+  <img src="./src/images/icon_128px.png" width="128"/>
 </p>
 
 <h1 align="center"> Cipherus </h1> <br>

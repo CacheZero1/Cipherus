@@ -20,6 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import euorg.nuvoprojects.cachezero1.menugui.AboutMenu;
+import euorg.nuvoprojects.cachezero1.menugui.SaveImageMenu;
+import euorg.nuvoprojects.cachezero1.menugui.SaveTextMenu;
+
 public class MainWindow extends JFrame implements ActionListener {
 
     // Settings
@@ -54,9 +58,13 @@ public class MainWindow extends JFrame implements ActionListener {
     JButton cryptorButton;
     JButton tartarusButton;
 
-    // Instances
+    // Instances (Ciphers)
     CryptorPanel cryptorPanel;
     TartarusPanel tartarusPanel;
+
+    // Instances (Menus)
+    SaveTextMenu saveTextMenu;
+    SaveImageMenu saveImageMenu;
 
     // File path seperator
     String filePathSep = FileSystems.getDefault().getSeparator();
@@ -123,7 +131,7 @@ public class MainWindow extends JFrame implements ActionListener {
         saveTextMenuItem.addActionListener(this);
         saveImageMenuItem.addActionListener(this);
         aboutMenuItem.addActionListener(this);
-        exitMenuItem.addActionListener(e -> { System.exit(0); });
+        exitMenuItem.addActionListener(exitAction -> { System.exit(0); });
 
         fontMenuItem.addActionListener(this);
         colourMenuItem.addActionListener(this);
@@ -131,9 +139,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
         encodersHelpMenuItem.addActionListener(this);
         applicationHelpMenuItem.addActionListener(this);
-
-
-        // Icons //TODO: add icons
 
 
         // Addition & visibility
@@ -210,6 +215,8 @@ public class MainWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        // Cipher selection
+
         if (e.getSource() == cryptorButton) {
 
             centerPanel.remove(centerPanel.getComponent(0));
@@ -224,6 +231,22 @@ public class MainWindow extends JFrame implements ActionListener {
             centerPanel.add(tartarusPanel, BorderLayout.CENTER);
             this.repaint();
 
+        }
+
+        // Menu clicks
+
+        if (e.getSource() == saveTextMenuItem) {
+            saveTextMenu = new SaveTextMenu();
+        }
+        if (e.getSource() == saveImageMenuItem) {
+            try {
+                saveImageMenu.dispose();
+            } catch (Exception menuDispose) {}
+
+            saveImageMenu = new SaveImageMenu();
+        }
+        if (e.getSource() == aboutMenuItem) {
+            new AboutMenu();
         }
 
     }
