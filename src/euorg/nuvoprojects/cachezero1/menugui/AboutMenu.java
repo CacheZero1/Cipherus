@@ -1,14 +1,16 @@
 package euorg.nuvoprojects.cachezero1.menugui;
 
+import java.awt.Component;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class AboutMenu extends JOptionPane {
 
-    public AboutMenu() {
+    public AboutMenu(Component parent) {
 
         AboutMenu.showOptionDialog(
-            null, 
+            parent, 
             "Encrypt and decrypt messages, be it in Text-format, or in Image-format.\n" +
             "All within a GUI, made to (hopefully) impress.\n" +
             "\n" +

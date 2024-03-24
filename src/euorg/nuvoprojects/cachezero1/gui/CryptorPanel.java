@@ -47,8 +47,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
     private JLabel cipheredTextLabel;
 
     private JTextField formulaField;
-    private JTextArea normalTextArea;
-    private JTextArea cipheredTextArea;
+    JTextArea normalTextArea;
+    JTextArea cipheredTextArea;
     private JButton startButton;
 
     private JRadioButton encryptRadioButton;

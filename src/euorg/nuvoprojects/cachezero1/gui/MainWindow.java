@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.FileSystems;
+import java.util.Arrays;
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
@@ -28,6 +29,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // Settings
     // private Font unitedFont;
+    private String cipherName;
 
     // Components (JMenu)
     private JMenuBar menuBar;
@@ -81,6 +83,8 @@ public class MainWindow extends JFrame implements ActionListener {
         this.setMinimumSize(new Dimension(900, 600));
         this.setTitle("Cipherus - (" + version + ")");
         this.setLayout(new BorderLayout());
+
+        this.cipherName = "cryptor";
 
         // Settings with exception chance
         try {
@@ -223,6 +227,8 @@ public class MainWindow extends JFrame implements ActionListener {
             centerPanel.add(cryptorPanel, BorderLayout.CENTER);
             this.repaint();
 
+            cipherName = "cryptor";
+
         }
 
         if (e.getSource() == tartarusButton) {
@@ -231,12 +237,26 @@ public class MainWindow extends JFrame implements ActionListener {
             centerPanel.add(tartarusPanel, BorderLayout.CENTER);
             this.repaint();
 
+            cipherName = "tartarus";
+
         }
 
         // Menu clicks
 
         if (e.getSource() == saveTextMenuItem) {
-            saveTextMenu = new SaveTextMenu();
+
+            switch(cipherName) {
+                case "tartarus":
+                    break; //TODO: add tartarus
+
+                case "cryptor":
+                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()));
+                    break;
+
+                default:
+                    break;
+            }
+            
         }
         if (e.getSource() == saveImageMenuItem) {
             try {
@@ -246,7 +266,7 @@ public class MainWindow extends JFrame implements ActionListener {
             saveImageMenu = new SaveImageMenu();
         }
         if (e.getSource() == aboutMenuItem) {
-            new AboutMenu();
+            new AboutMenu(this);
         }
 
     }
