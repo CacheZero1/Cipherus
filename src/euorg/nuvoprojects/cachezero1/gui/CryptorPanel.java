@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -26,7 +27,9 @@ import euorg.nuvoprojects.cachezero1.ciphers.cryptor.Cryptor;
 public class CryptorPanel extends JPanel implements ActionListener {
 
     // Settings
-    private Font unitedFont;
+    private static Font titleFont;
+    private static Font subtitleFont;
+    private static Font inputFont;
 
     // Components (Positioning)
     JPanel topPanel;
@@ -59,10 +62,12 @@ public class CryptorPanel extends JPanel implements ActionListener {
     String filePathSep = FileSystems.getDefault().getSeparator();
 
 
-    public CryptorPanel(Font font, boolean darkMode) {
+    public CryptorPanel(HashMap<String, Font> fontMap, boolean darkMode) {
 
         // Globals
-        this.unitedFont = font;
+        titleFont = fontMap.get("title");
+        subtitleFont = fontMap.get("subtitle");
+        inputFont = fontMap.get("input");
 
         // Settings
         this.setLayout(new BorderLayout());
@@ -127,33 +132,33 @@ public class CryptorPanel extends JPanel implements ActionListener {
         formulaLabel = new JLabel("Formula:");
         formulaLabel.setFocusable(false);
         formulaLabel.setHorizontalAlignment(JLabel.RIGHT);
-        formulaLabel.setFont(unitedFont);
+        formulaLabel.setFont(subtitleFont);
 
         normalTextLabel = new JLabel("Normal Text:");
         normalTextLabel.setFocusable(false);
-        normalTextLabel.setFont(unitedFont);
+        normalTextLabel.setFont(subtitleFont);
 
         cipheredTextLabel = new JLabel("Encrypted Text:");
         cipheredTextLabel.setFocusable(false);
-        cipheredTextLabel.setFont(unitedFont);
+        cipheredTextLabel.setFont(subtitleFont);
 
         // Main components
         formulaField = new JTextField();
         formulaField.setHorizontalAlignment(JTextField.LEFT);
-        formulaField.setFont(unitedFont);
+        formulaField.setFont(inputFont);
 
         normalTextArea = new JTextArea();
-        normalTextArea.setFont(new Font(unitedFont.getName(), unitedFont.getStyle(), unitedFont.getSize() - 2));
+        normalTextArea.setFont(inputFont);
         normalTextArea.setLineWrap(true);
 
         cipheredTextArea = new JTextArea();
-        cipheredTextArea.setFont(new Font(unitedFont.getName(), unitedFont.getStyle(), unitedFont.getSize() - 2));
+        cipheredTextArea.setFont(inputFont);
         cipheredTextArea.setLineWrap(true);
 
         startButton = new JButton("Start");
         startButton.setHorizontalAlignment(JButton.CENTER);
         startButton.addActionListener(this);
-        startButton.setFont(unitedFont);
+        startButton.setFont(titleFont);
 
         // Action selectors
         encryptRadioButton = new JRadioButton("Encrypt");
@@ -162,14 +167,14 @@ public class CryptorPanel extends JPanel implements ActionListener {
         encryptRadioButton.setFocusPainted(false);
         encryptRadioButton.addActionListener(this);
         encryptRadioButton.setSelected(true);
-        encryptRadioButton.setFont(unitedFont);
+        encryptRadioButton.setFont(titleFont);
 
         decryptRadioButton = new JRadioButton("Decrypt");
         decryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/decrypt_b.png")));
         decryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         decryptRadioButton.setFocusPainted(false);
         decryptRadioButton.addActionListener(this);
-        decryptRadioButton.setFont(unitedFont);
+        decryptRadioButton.setFont(titleFont);
 
         radioButtonOptionGroup = new ButtonGroup();
         radioButtonOptionGroup.add(encryptRadioButton);
@@ -210,6 +215,22 @@ public class CryptorPanel extends JPanel implements ActionListener {
         this.add(topPanel, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
+
+    }
+
+    public void setNewFonts(Font newTitleFont, Font newSubtitleFont, Font newInputFont) {
+
+        encryptRadioButton.setFont(newTitleFont);
+        decryptRadioButton.setFont(newTitleFont);
+        startButton.setFont(newTitleFont);
+
+        formulaLabel.setFont(newSubtitleFont);
+        normalTextLabel.setFont(newSubtitleFont);
+        cipheredTextLabel.setFont(newSubtitleFont);
+
+        formulaField.setFont(newInputFont);
+        normalTextArea.setFont(newInputFont);
+        cipheredTextArea.setFont(newInputFont);
 
     }
 

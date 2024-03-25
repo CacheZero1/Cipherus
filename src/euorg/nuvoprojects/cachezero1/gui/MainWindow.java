@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
@@ -21,14 +23,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import euorg.nuvoprojects.cachezero1.SaveHandler;
 import euorg.nuvoprojects.cachezero1.menugui.AboutMenu;
+import euorg.nuvoprojects.cachezero1.menugui.FontMenu;
 import euorg.nuvoprojects.cachezero1.menugui.SaveImageMenu;
 import euorg.nuvoprojects.cachezero1.menugui.SaveTextMenu;
 
 public class MainWindow extends JFrame implements ActionListener {
 
     // Settings
-    // private Font unitedFont;
+    private static SaveHandler saveHandler;
+    private static Font selectionFont;
+
+    private static HashMap<String, Font> mappedFonts;
+
     private String cipherName;
     private final String cryptorName = "cryptor";
     private final String tartarusName = "tartarus";
@@ -74,10 +82,13 @@ public class MainWindow extends JFrame implements ActionListener {
     String filePathSep = FileSystems.getDefault().getSeparator();
     
 
-    public MainWindow(String version, Font font, boolean darkMode) {
+    public MainWindow(String version, HashMap<String, Font> fontMap, boolean darkMode, SaveHandler handler) {
 
         // Globals
-        //this.unitedFont = font; // TODO: add handle
+        saveHandler = handler;
+
+        selectionFont = fontMap.get("selection");
+        mappedFonts = fontMap;
 
         // Normal settings
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,7 +107,7 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         // Instances
-        cryptorPanel = new CryptorPanel(font, darkMode);
+        cryptorPanel = new CryptorPanel(fontMap, darkMode);
         tartarusPanel = new TartarusPanel();
 
         // Populate GUI
@@ -196,11 +207,13 @@ public class MainWindow extends JFrame implements ActionListener {
     private void createFunctionalComponents() {
 
         cryptorButton = new JButton("Cryptor");
+        cryptorButton.setFont(selectionFont);
         cryptorButton.setFocusable(false);
         cryptorButton.setPreferredSize(new Dimension(cryptorButton.getWidth(), 50));
         cryptorButton.addActionListener(this);
 
         tartarusButton = new JButton("Tartarus");
+        tartarusButton.setFont(selectionFont);
         tartarusButton.setFocusable(false);
         tartarusButton.setPreferredSize(new Dimension(tartarusButton.getWidth(), 50));
         tartarusButton.addActionListener(this);
@@ -217,6 +230,15 @@ public class MainWindow extends JFrame implements ActionListener {
         this.add(rightPanel, BorderLayout.EAST);
         this.add(leftScrollPane, BorderLayout.WEST);
         this.add(centerPanel, BorderLayout.CENTER);
+
+    }
+
+    private void applyChanges(LinkedList<Font> fontList) {
+
+        cryptorButton.setFont(fontList.get(2));
+        tartarusButton.setFont(fontList.get(2));
+
+        cryptorPanel.setNewFonts(fontList.get(0), fontList.get(1), fontList.get(3));
 
     }
 
@@ -271,6 +293,20 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == fontMenuItem) {
+
+            FontMenu fontMenu = new FontMenu();
+            LinkedList<Object> returnedList = fontMenu.start(this, mappedFonts);
+
+            if (((Integer) returnedList.get(0)) == JOptionPane.OK_OPTION) {
+                LinkedList<Font> fontList = new LinkedList<Font>();
+                fontList.add((Font) returnedList.get(1));
+                fontList.add((Font) returnedList.get(2));
+                fontList.add((Font) returnedList.get(3));
+                fontList.add((Font) returnedList.get(4));
+                applyChanges(fontList);
+
+
+            }
 
         }
         if (e.getSource() == colourMenuItem) {

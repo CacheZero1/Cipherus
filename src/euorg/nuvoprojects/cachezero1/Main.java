@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import euorg.nuvoprojects.cachezero1.gui.MainWindow;
-import euorg.nuvoprojects.cachezero1.menugui.FontMenu;
 
 public class Main {
 
@@ -27,12 +26,8 @@ public class Main {
         setupSave();
 
 
-        MainWindow mainWindow = new MainWindow(version, fontmap, Boolean.parseBoolean(dataMap.get("mode")));
+        MainWindow mainWindow = new MainWindow(version, fontmap, Boolean.parseBoolean(dataMap.get("mode")), handler);
         mainWindow.setVisible(true);
-
-        
-
-        //FontMenu fontMenu = new FontMenu(null);
 
     }
 

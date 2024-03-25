@@ -8,6 +8,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -21,10 +23,15 @@ import javax.swing.event.ChangeListener;
 
 public class FontMenu extends JOptionPane implements ActionListener, ChangeListener {
 
-    // Global
+    // Globals
     private Font globalFont = new Font(null, Font.PLAIN, 20);
     String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     String[] styles = new String[]{"Plain", "Bold", "Italic"};
+
+    private Font titleFont;
+    private Font subtitleFont;
+    private Font selectionFont;
+    private Font inputFont;
 
     // Main panel
     private JPanel mainPanel;
@@ -83,13 +90,20 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     JSlider selectionSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
     JSlider inputSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
 
-    public FontMenu(Component parent) {
+
+    public LinkedList<Object> start(Component parent, HashMap<String, Font> fontMap) {
+
+        // Set fonts
+        titleFont = fontMap.get("title");
+        subtitleFont = fontMap.get("subtitle");
+        selectionFont = fontMap.get("selection");
+        inputFont = fontMap.get("input");
 
         // Create panel
         createPositioning();
         createFunctionals();
         addPanels();
-        
+
         int chosenOption = FontMenu.showConfirmDialog(
             parent, 
             mainPanel, 
@@ -98,16 +112,17 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
             JOptionPane.PLAIN_MESSAGE
         );
 
+        LinkedList<Object> returnList = new LinkedList<>();
+        returnList.add(chosenOption);
+
         if (chosenOption == JOptionPane.OK_OPTION) {
-
-            //updateSettings();
-            //saveSettings();
-
-        } else if (chosenOption == JOptionPane.CANCEL_OPTION) {
-
-            System.out.println("cancel");
-
+            returnList.add(new Font((String) titleFamilyBox.getSelectedItem(), determineStyle((String) titleStyleBox.getSelectedItem()), titleSizeSlider.getValue()));
+            returnList.add(new Font((String) subtitleFamilyBox.getSelectedItem(), determineStyle((String) subtitleStyleBox.getSelectedItem()), subtitleSizeSlider.getValue()));
+            returnList.add(new Font((String) selectionFamilyBox.getSelectedItem(), determineStyle((String) selectionStyleBox.getSelectedItem()), selectionSizeSlider.getValue()));
+            returnList.add(new Font((String) inputFamilyBox.getSelectedItem(), determineStyle((String) inputStyleBox.getSelectedItem()), inputSizeSlider.getValue()));
         }
+
+        return returnList;
 
     }
 
@@ -142,37 +157,53 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         styleLabel.setFont(globalFont);
         sizeLabel.setFont(globalFont);
 
-        titleLabel.setFont(globalFont);
-        subtitleLabel.setFont(globalFont);
-        selectionLabel.setFont(globalFont);
-        inputLabel.setFont(globalFont);
+        titleLabel.setFont(titleFont);
+        subtitleLabel.setFont(subtitleFont);
+        selectionLabel.setFont(selectionFont);
+        inputLabel.setFont(inputFont);
 
         // ComboBoxes
+        titleFamilyBox.setSelectedItem(titleFont.getFamily());
         titleFamilyBox.addActionListener(this);
+
+        titleStyleBox.setSelectedItem(determineStyleName(titleFont.getStyle()));
         titleStyleBox.addActionListener(this);
 
+        subtitleFamilyBox.setSelectedItem(subtitleFont.getFamily());
         subtitleFamilyBox.addActionListener(this);
+
+        subtitleStyleBox.setSelectedItem(determineStyleName(subtitleFont.getStyle()));
         subtitleStyleBox.addActionListener(this);
 
+        selectionFamilyBox.setSelectedItem(selectionFont.getFamily());
         selectionFamilyBox.addActionListener(this);
+
+        selectionStyleBox.setSelectedItem(determineStyleName(selectionFont.getStyle()));
         selectionStyleBox.addActionListener(this);
 
+        inputFamilyBox.setSelectedItem(inputFont.getFamily());
         inputFamilyBox.addActionListener(this);
+
+        inputStyleBox.setSelectedItem(determineStyleName(inputFont.getStyle()));
         inputStyleBox.addActionListener(this);
 
         // Sliders
+        titleSizeSlider.setValue(titleFont.getSize());
         titleSizeSlider.setPaintTicks(true);
         titleSizeSlider.setMinorTickSpacing(5);
         titleSizeSlider.addChangeListener(this);
 
+        subtitleSizeSlider.setValue(subtitleFont.getSize());
         subtitleSizeSlider.setPaintTicks(true);
         subtitleSizeSlider.setMinorTickSpacing(5);
         subtitleSizeSlider.addChangeListener(this);
 
+        selectionSizeSlider.setValue(selectionFont.getSize());
         selectionSizeSlider.setPaintTicks(true);
         selectionSizeSlider.setMinorTickSpacing(5);
         selectionSizeSlider.addChangeListener(this);
 
+        inputSizeSlider.setValue(inputFont.getSize());
         inputSizeSlider.setPaintTicks(true);
         inputSizeSlider.setMinorTickSpacing(5);
         inputSizeSlider.addChangeListener(this);
@@ -256,6 +287,22 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         
             default:
                 return Font.PLAIN;
+        }
+    }
+
+    private String determineStyleName(Integer styleInt) {
+        switch (styleInt) {
+            case Font.PLAIN:
+                return "Plain";
+                
+            case Font.BOLD:
+                return "Bold";
+
+            case Font.ITALIC:
+                return "Italic";
+        
+            default:
+                return "Plain";
         }
     }
 
