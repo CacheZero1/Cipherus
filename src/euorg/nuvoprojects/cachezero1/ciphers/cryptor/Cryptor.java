@@ -8,8 +8,8 @@ import euorg.nuvoprojects.cachezero1.Algorithm;
 
 public class Cryptor {
 
-    private LinkedList<String> letters = new LinkedList<>(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ß"));
-    private LinkedList<String> lettersChecklist = new LinkedList<>(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ß"));
+    private LinkedList<String> letters = new LinkedList<>(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ß", " "));
+    private LinkedList<String> lettersChecklist = new LinkedList<>(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","ß", " "));
     private LinkedHashMap<Integer, String> letterMap = new LinkedHashMap<>();
     private LinkedList<Integer> letterDefaultNums = new LinkedList<>();
     private LinkedList<String> errorLetter = new LinkedList<>();
@@ -99,8 +99,7 @@ public class Cryptor {
 
         for (int i = 0; i < text.length(); i++) {
 
-            String character = String.valueOf(text.charAt(i)).toUpperCase();
-            newText += cryptionLib.get(character).get("Encrypted");
+            newText += cryptionLib.get(String.valueOf(text.charAt(i)).toUpperCase()).get("Encrypted");
 
         }
 

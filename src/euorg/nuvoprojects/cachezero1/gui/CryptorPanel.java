@@ -270,7 +270,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     cipheredTextArea.setText(encrypted);
                     
                 } catch (Exception encryptionError) {
-
+                    encryptionError.printStackTrace();
                     JOptionPane.showMessageDialog(null, "A calculation error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
 
                 }
@@ -285,7 +285,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     cipheredTextArea.setText(decrypted);
 
                 } catch (Exception decryptionError) {
-                    
+                    decryptionError.printStackTrace();
                     JOptionPane.showMessageDialog(null, "A calculation error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
 
                 }
