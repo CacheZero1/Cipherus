@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Properties;
 
+
 import javax.swing.JOptionPane;
 
 public class SaveHandler {
@@ -55,20 +56,26 @@ public class SaveHandler {
 
     }
 
-    public Properties readXML() {
+    public HashMap<String, String> readXML() {
+
+        HashMap<String, String> map = new HashMap<>();
 
         try {
 
             properties = new Properties();
             InputStream inputStream = new FileInputStream(savePath);
             properties.loadFromXML(inputStream);
+
+            properties.forEach((key, value) -> {
+                map.put(String.valueOf(key), String.valueOf(value));
+            });
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "An error occured, whilst trying to read a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
             properties = new Properties();
         }
 
-        return properties;
+        return map;
 
     }
 

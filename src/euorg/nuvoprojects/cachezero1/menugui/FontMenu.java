@@ -55,11 +55,6 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     private JPanel panel24 = new JPanel();
     private JPanel panel34 = new JPanel();
 
-    private JPanel menuPanel = new JPanel();
-    private JPanel panel15 = new JPanel();
-    private JPanel panel25 = new JPanel();
-    private JPanel panel35 = new JPanel();
-
     // Components (functional)
     // Labels
     JLabel familyLabel = new JLabel("Family");
@@ -70,20 +65,17 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     JLabel subtitleLabel = new JLabel("Subtitle");
     JLabel selectionLabel = new JLabel("Selection");
     JLabel inputLabel = new JLabel("Input");
-    JLabel menuLabel = new JLabel("Menu");
 
     // ComboBoxes
     JComboBox<String> titleFamilyBox = new JComboBox<String>(fonts);
     JComboBox<String> subtitleFamilyBox = new JComboBox<String>(fonts);
     JComboBox<String> selectionFamilyBox = new JComboBox<String>(fonts);
     JComboBox<String> inputFamilyBox = new JComboBox<String>(fonts);
-    JComboBox<String> menuFamilyBox = new JComboBox<String>(fonts);
 
     JComboBox<String> titleStyleBox = new JComboBox<String>(styles);
     JComboBox<String> subtitleStyleBox = new JComboBox<String>(styles);
     JComboBox<String> selectionStyleBox = new JComboBox<String>(styles);
     JComboBox<String> inputStyleBox = new JComboBox<String>(styles);
-    JComboBox<String> menuStyleBox = new JComboBox<String>(styles);
 
     // Sliders
     JSlider titleSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
@@ -108,7 +100,8 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
         if (chosenOption == JOptionPane.OK_OPTION) {
 
-            System.out.println("ok");
+            //updateSettings();
+            //saveSettings();
 
         } else if (chosenOption == JOptionPane.CANCEL_OPTION) {
 
@@ -123,7 +116,7 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     private void createPositioning() {
 
         // Main panel
-        mainPanel = new JPanel(new GridLayout(6, 4));
+        mainPanel = new JPanel(new GridLayout(5, 4));
         mainPanel.setPreferredSize(new Dimension(800, 300));
 
         // Other panels
@@ -139,7 +132,6 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         subtitlePanel.setBorder(rightBorder);
         selectionPanel.setBorder(rightBorder);
         inputPanel.setBorder(rightBorder);
-        menuPanel.setBorder(rightBorder);
 
     }
 
@@ -154,7 +146,6 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         subtitleLabel.setFont(globalFont);
         selectionLabel.setFont(globalFont);
         inputLabel.setFont(globalFont);
-        menuLabel.setFont(globalFont);
 
         // ComboBoxes
         titleFamilyBox.addActionListener(this);
@@ -168,9 +159,6 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
         inputFamilyBox.addActionListener(this);
         inputStyleBox.addActionListener(this);
-
-        menuFamilyBox.addActionListener(this);
-        menuStyleBox.addActionListener(this);
 
         // Sliders
         titleSizeSlider.setPaintTicks(true);
@@ -203,20 +191,17 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         subtitlePanel.add(subtitleLabel);
         selectionPanel.add(selectionLabel);
         inputPanel.add(inputLabel);
-        menuPanel.add(menuLabel);
 
         // ComboBoxes
         panel11.add(titleFamilyBox);
         panel12.add(subtitleFamilyBox);
         panel13.add(selectionFamilyBox);
         panel14.add(inputFamilyBox);
-        panel15.add(menuFamilyBox);
 
         panel21.add(titleStyleBox);
         panel22.add(subtitleStyleBox);
         panel23.add(selectionStyleBox);
         panel24.add(inputStyleBox);
-        panel25.add(menuStyleBox);
 
         // Sliders
         panel31.add(titleSizeSlider);
@@ -250,17 +235,11 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         mainPanel.add(panel24);
         mainPanel.add(panel34);
 
-        mainPanel.add(menuPanel);
-        mainPanel.add(panel15);
-        mainPanel.add(panel25);
-        mainPanel.add(panel35);
-
         // Resize
         titleFamilyBox.setPreferredSize(new Dimension(200, ((Double) titleFamilyBox.getPreferredSize().getHeight()).intValue()));
         subtitleFamilyBox.setPreferredSize(new Dimension(200, ((Double) subtitleFamilyBox.getPreferredSize().getHeight()).intValue()));
         selectionFamilyBox.setPreferredSize(new Dimension(200, ((Double) selectionFamilyBox.getPreferredSize().getHeight()).intValue()));
         inputFamilyBox.setPreferredSize(new Dimension(200, ((Double) inputFamilyBox.getPreferredSize().getHeight()).intValue()));
-        menuFamilyBox.setPreferredSize(new Dimension(200, ((Double) menuFamilyBox.getPreferredSize().getHeight()).intValue()));
 
     }
 
@@ -278,8 +257,8 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
             default:
                 return Font.PLAIN;
         }
-
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -311,13 +290,6 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
                 (String) inputFamilyBox.getSelectedItem(), 
                 inputLabel.getFont().getStyle(), 
                 inputLabel.getFont().getSize()
-            ));
-        }
-        if (e.getSource() == menuFamilyBox) {
-            menuLabel.setFont(new Font(
-                (String) menuFamilyBox.getSelectedItem(), 
-                menuLabel.getFont().getStyle(), 
-                menuLabel.getFont().getSize()
             ));
         }
 
@@ -354,14 +326,6 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
                 inputLabel.getFont().getFamily(), 
                 style, 
                 inputLabel.getFont().getSize()
-            ));
-        }
-        if (e.getSource() == menuStyleBox) {
-            Integer style = determineStyle((String) menuStyleBox.getSelectedItem());
-            menuLabel.setFont(new Font(
-                menuLabel.getFont().getFamily(), 
-                style, 
-                menuLabel.getFont().getSize()
             ));
         }
 

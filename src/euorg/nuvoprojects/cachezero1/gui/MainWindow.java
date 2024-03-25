@@ -105,6 +105,9 @@ public class MainWindow extends JFrame implements ActionListener {
         createFunctionalComponents();
         addGUIComponents();
 
+        System.out.println();
+        System.out.println();
+
     }
 
 
