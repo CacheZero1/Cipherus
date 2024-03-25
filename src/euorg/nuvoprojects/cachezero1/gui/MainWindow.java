@@ -30,6 +30,8 @@ public class MainWindow extends JFrame implements ActionListener {
     // Settings
     // private Font unitedFont;
     private String cipherName;
+    private final String cryptorName = "cryptor";
+    private final String tartarusName = "tartarus";
 
     // Components (JMenu)
     private JMenuBar menuBar;
@@ -84,7 +86,7 @@ public class MainWindow extends JFrame implements ActionListener {
         this.setTitle("Cipherus - (" + version + ")");
         this.setLayout(new BorderLayout());
 
-        this.cipherName = "cryptor";
+        this.cipherName = cryptorName;
 
         // Settings with exception chance
         try {
@@ -227,7 +229,7 @@ public class MainWindow extends JFrame implements ActionListener {
             centerPanel.add(cryptorPanel, BorderLayout.CENTER);
             this.repaint();
 
-            cipherName = "cryptor";
+            cipherName = cryptorName;
 
         }
 
@@ -237,7 +239,7 @@ public class MainWindow extends JFrame implements ActionListener {
             centerPanel.add(tartarusPanel, BorderLayout.CENTER);
             this.repaint();
 
-            cipherName = "tartarus";
+            cipherName = tartarusName;
 
         }
 
@@ -246,10 +248,10 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getSource() == saveTextMenuItem) {
 
             switch(cipherName) {
-                case "tartarus":
+                case tartarusName:
                     break; //TODO: add tartarus
 
-                case "cryptor":
+                case cryptorName:
                     saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()));
                     break;
 
@@ -259,14 +261,20 @@ public class MainWindow extends JFrame implements ActionListener {
             
         }
         if (e.getSource() == saveImageMenuItem) {
-            try {
-                saveImageMenu.dispose();
-            } catch (Exception menuDispose) {}
-
-            saveImageMenu = new SaveImageMenu();
+            new SaveImageMenu();
         }
         if (e.getSource() == aboutMenuItem) {
             new AboutMenu(this);
+        }
+
+        if (e.getSource() == fontMenuItem) {
+
+        }
+        if (e.getSource() == colourMenuItem) {
+
+        }
+        if (e.getSource() == languageMenuItem) {
+            
         }
 
     }
