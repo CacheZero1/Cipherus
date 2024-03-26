@@ -33,7 +33,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // Settings
     private static SaveHandler saveHandler;
-    private static Font selectionFont;
 
     private static HashMap<String, Font> mappedFonts;
 
@@ -82,13 +81,10 @@ public class MainWindow extends JFrame implements ActionListener {
     String filePathSep = FileSystems.getDefault().getSeparator();
     
 
-    public MainWindow(String version, HashMap<String, Font> fontMap, boolean darkMode, SaveHandler handler) {
+    public MainWindow(String version, SaveHandler handler) {
 
         // Globals
         saveHandler = handler;
-
-        selectionFont = fontMap.get("selection");
-        mappedFonts = fontMap;
 
         // Normal settings
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,18 +107,17 @@ public class MainWindow extends JFrame implements ActionListener {
         tartarusPanel = new TartarusPanel();
 
         // Populate GUI
-        createMenu();
+        createJMenu();
         createPositioningComponents();
         createFunctionalComponents();
         addGUIComponents();
-
-        System.out.println();
-        System.out.println();
+        applyFont(handler.getFontMap().get(saveHandler.subtitleFontName));
 
     }
 
 
-    private void createMenu() {
+    // Create menu
+    private void createJMenu() {
 
         // Main Menus
         menuBar = new JMenuBar();
@@ -182,6 +177,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
     }
 
+    // Create positioners
     private void createPositioningComponents() {
 
         gbc = new GridBagConstraints();
@@ -204,41 +200,45 @@ public class MainWindow extends JFrame implements ActionListener {
 
     }
 
+    // Create functionals
     private void createFunctionalComponents() {
 
+        // Cryptor activator
         cryptorButton = new JButton("Cryptor");
-        cryptorButton.setFont(selectionFont);
         cryptorButton.setFocusable(false);
         cryptorButton.setPreferredSize(new Dimension(cryptorButton.getWidth(), 50));
         cryptorButton.addActionListener(this);
 
+        // Tartarus activator
         tartarusButton = new JButton("Tartarus");
-        tartarusButton.setFont(selectionFont);
         tartarusButton.setFocusable(false);
         tartarusButton.setPreferredSize(new Dimension(tartarusButton.getWidth(), 50));
         tartarusButton.addActionListener(this);
 
     }
 
+    // Add all to JFrame
     private void addGUIComponents() {
 
+        // Activators
         leftPanel.add(cryptorButton, gbc);
         leftPanel.add(tartarusButton, gbc);
 
+        // Main view
         centerPanel.add(cryptorPanel, BorderLayout.CENTER);
 
+        // Addition
         this.add(rightPanel, BorderLayout.EAST);
         this.add(leftScrollPane, BorderLayout.WEST);
         this.add(centerPanel, BorderLayout.CENTER);
 
     }
 
-    private void applyChanges(LinkedList<Font> fontList) {
+    // Apply fonts
+    private void applyFont(Font selectionFont) {
 
-        cryptorButton.setFont(fontList.get(2));
-        tartarusButton.setFont(fontList.get(2));
-
-        cryptorPanel.setNewFonts(fontList.get(0), fontList.get(1), fontList.get(3));
+        cryptorButton.setFont(selectionFont);
+        tartarusButton.setFont(selectionFont);
 
     }
 
@@ -246,32 +246,29 @@ public class MainWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        // Cipher selection
-
+        // ------- <Cipher selection> -------
+        // Cryptor button
         if (e.getSource() == cryptorButton) {
-
             centerPanel.remove(centerPanel.getComponent(0));
             centerPanel.add(cryptorPanel, BorderLayout.CENTER);
             this.repaint();
 
             cipherName = cryptorName;
-
         }
 
+        // Tartarus button
         if (e.getSource() == tartarusButton) {
-
             centerPanel.remove(centerPanel.getComponent(0));
             centerPanel.add(tartarusPanel, BorderLayout.CENTER);
             this.repaint();
 
             cipherName = tartarusName;
-
         }
+        // ------- </Cipher selection> -------
 
-        // Menu clicks
-
+        // ------- <Menu clicks> -------
+        // Save text
         if (e.getSource() == saveTextMenuItem) {
-
             switch(cipherName) {
                 case tartarusName:
                     break; //TODO: add tartarus
@@ -283,15 +280,19 @@ public class MainWindow extends JFrame implements ActionListener {
                 default:
                     break;
             }
-            
         }
+
+        // Save image
         if (e.getSource() == saveImageMenuItem) {
             new SaveImageMenu();
         }
+
+        // About page
         if (e.getSource() == aboutMenuItem) {
             new AboutMenu(this);
         }
 
+        // Font settings
         if (e.getSource() == fontMenuItem) {
 
             FontMenu fontMenu = new FontMenu();
@@ -309,12 +310,17 @@ public class MainWindow extends JFrame implements ActionListener {
             }
 
         }
+
+        // Colour settings
         if (e.getSource() == colourMenuItem) {
 
         }
+
+        // Language settings
         if (e.getSource() == languageMenuItem) {
             
         }
+        // ------- </Menu clicks> -------
 
     }
     

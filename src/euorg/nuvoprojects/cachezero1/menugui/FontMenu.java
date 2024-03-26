@@ -21,6 +21,8 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import euorg.nuvoprojects.cachezero1.SaveHandler;
+
 public class FontMenu extends JOptionPane implements ActionListener, ChangeListener {
 
     // Globals
@@ -62,7 +64,7 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     private JPanel panel24 = new JPanel();
     private JPanel panel34 = new JPanel();
 
-    // Components (functional)
+    // ------- <Functional components> -------
     // Labels
     JLabel familyLabel = new JLabel("Family");
     JLabel styleLabel = new JLabel("Style");
@@ -89,21 +91,23 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     JSlider subtitleSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
     JSlider selectionSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
     JSlider inputSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
+    // ------- </Functional components> -------
 
-
-    public LinkedList<Object> start(Component parent, HashMap<String, Font> fontMap) {
+    // Start
+    public LinkedList<Object> start(Component parent, SaveHandler saveHandler) {
 
         // Set fonts
-        titleFont = fontMap.get("title");
-        subtitleFont = fontMap.get("subtitle");
-        selectionFont = fontMap.get("selection");
-        inputFont = fontMap.get("input");
+        titleFont = saveHandler.getFontMap().get(saveHandler.titleFontName);
+        subtitleFont = saveHandler.getFontMap().get(saveHandler.subtitleFontName);
+        selectionFont = saveHandler.getFontMap().get(saveHandler.selectionFontName);
+        inputFont = saveHandler.getFontMap().get(saveHandler.inputFontName);
 
         // Create panel
         createPositioning();
         createFunctionals();
         addPanels();
 
+        // Show popup
         int chosenOption = FontMenu.showConfirmDialog(
             parent, 
             mainPanel, 
@@ -150,6 +154,7 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
     }
 
+    // Create functionals & assign fonts
     private void createFunctionals() {
 
         // Labels
@@ -210,9 +215,10 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         
     }
 
+    // Addition
     private void addPanels() {
 
-        // Add to panels
+        // ------- <Add to panels> -------
         // Labels
         familyPanel.add(familyLabel);
         stylePanel.add(styleLabel);
@@ -271,6 +277,14 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         subtitleFamilyBox.setPreferredSize(new Dimension(200, ((Double) subtitleFamilyBox.getPreferredSize().getHeight()).intValue()));
         selectionFamilyBox.setPreferredSize(new Dimension(200, ((Double) selectionFamilyBox.getPreferredSize().getHeight()).intValue()));
         inputFamilyBox.setPreferredSize(new Dimension(200, ((Double) inputFamilyBox.getPreferredSize().getHeight()).intValue()));
+        // ------- </Add to panels> -------
+
+    }
+
+    // Apply the fonts
+    public void applyFonts() {
+
+
 
     }
 
