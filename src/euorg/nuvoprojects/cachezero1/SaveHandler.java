@@ -34,6 +34,23 @@ public class SaveHandler {
     public final String selectionFontName = "selection";
     public final String inputFontName = "input";
 
+    // Font fragments
+    public final String titleFamilyName = "titleFamily";
+    public final String titleStyleName = "titleStyle";
+    public final String titleSizeName = "titleSize";
+
+    public final String subtitleFamilyName = "subtitleFamily";
+    public final String subtitleStyleName = "subtitleStyle";
+    public final String subtitleSizeName = "subtitleSize";
+
+    public final String selectionFamilyName = "selectionFamily";
+    public final String selectionStyleName = "selectionStyle";
+    public final String selectionSizeName = "selectionSize";
+
+    public final String inputFamilyName = "inputFamily";
+    public final String inputStyleName = "inputStyle";
+    public final String inputSizeName = "inputSize";
+
     // Data
     public final String langName = "lang";
     public final String modeName = "mode";
@@ -118,24 +135,24 @@ public class SaveHandler {
 
         // ------- <Font> -------
         // Title
-        infoMap.put("titleFamily", fontDefaultFamily);
-        infoMap.put("titleStyle", String.valueOf(Font.PLAIN));
-        infoMap.put("titleSize", String.valueOf(20));
+        infoMap.put(titleFamilyName, fontDefaultFamily);
+        infoMap.put(titleStyleName, String.valueOf(Font.PLAIN));
+        infoMap.put(titleSizeName, String.valueOf(20));
 
         // Subtitle
-        infoMap.put("subtitleFamily", fontDefaultFamily);
-        infoMap.put("subtitleStyle", String.valueOf(Font.PLAIN));
-        infoMap.put("subtitleSize", String.valueOf(20));
+        infoMap.put(subtitleFamilyName, fontDefaultFamily);
+        infoMap.put(subtitleStyleName, String.valueOf(Font.PLAIN));
+        infoMap.put(subtitleSizeName, String.valueOf(20));
 
         // Selection
-        infoMap.put("selectionFamily", fontDefaultFamily);
-        infoMap.put("selectionStyle", String.valueOf(Font.PLAIN));
-        infoMap.put("selectionSize", String.valueOf(13));
+        infoMap.put(selectionFamilyName, fontDefaultFamily);
+        infoMap.put(selectionStyleName, String.valueOf(Font.PLAIN));
+        infoMap.put(selectionSizeName, String.valueOf(13));
 
         // Input
-        infoMap.put("inputFamily", fontDefaultFamily);
-        infoMap.put("inputStyle", String.valueOf(Font.PLAIN));
-        infoMap.put("inputSize", String.valueOf(18));
+        infoMap.put(inputFamilyName, fontDefaultFamily);
+        infoMap.put(inputStyleName, String.valueOf(Font.PLAIN));
+        infoMap.put(inputSizeName, String.valueOf(18));
         // ------- </Font> -------
 
         // Save
@@ -143,8 +160,8 @@ public class SaveHandler {
 
         // ------- <Mappers> -------
         // Data
-        dataMap.put("mode", "False");
-        dataMap.put("lang", infoMap.get("lang"));
+        dataMap.put(modeName, "False");
+        dataMap.put(langName, infoMap.get(modeName));
 
         // Font
         fontMap.put(titleFontName, new Font(fontDefaultFamily, Font.PLAIN, 20));
@@ -186,19 +203,65 @@ public class SaveHandler {
 
                 HashMap<String, String> stored = readXML();
 
-                dataMap.put(modeName, stored.get("mode"));
-                dataMap.put(langName, stored.get("lang"));
+                dataMap = new HashMap<String, String>();
+                fontMap = new HashMap<String, Font>();
 
-                fontMap.put(titleFontName, new Font(stored.get("titleFamily"), Integer.valueOf(stored.get("titleStyle")), Integer.valueOf(stored.get("titleSize"))));
-                fontMap.put(subtitleFontName, new Font(stored.get("subtitleFamily"), Integer.valueOf(stored.get("subtitleStyle")), Integer.valueOf(stored.get("subtitleSize"))));
-                fontMap.put(selectionFontName, new Font(stored.get("selectionFamily"), Integer.valueOf(stored.get("selectionStyle")), Integer.valueOf(stored.get("selectionSize"))));
-                fontMap.put(inputFontName, new Font(stored.get("inputFamily"), Integer.valueOf(stored.get("inputStyle")), Integer.valueOf(stored.get("inputSize"))));
+                dataMap.put(modeName, stored.get(modeName));
+                dataMap.put(langName, stored.get(langName));
+
+                fontMap.put(titleFontName, new Font(stored.get(titleFamilyName), Integer.valueOf(stored.get(titleStyleName)), Integer.valueOf(stored.get(titleSizeName))));
+                fontMap.put(subtitleFontName, new Font(stored.get(subtitleFamilyName), Integer.valueOf(stored.get(subtitleStyleName)), Integer.valueOf(stored.get(subtitleSizeName))));
+                fontMap.put(selectionFontName, new Font(stored.get(selectionFamilyName), Integer.valueOf(stored.get(selectionStyleName)), Integer.valueOf(stored.get(selectionSizeName))));
+                fontMap.put(inputFontName, new Font(stored.get(inputFamilyName), Integer.valueOf(stored.get(inputStyleName)), Integer.valueOf(stored.get(inputSizeName))));
                 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "An error occured, whilst trying to read a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
             }
 
         }
+
+    }
+
+    // Apply changes
+    public void applyChanges(HashMap<String, Font> newFontMap, HashMap<String, String> newDataMap) {
+
+        // Apply changes in current instance
+        fontMap = newFontMap;
+        dataMap = newDataMap;
+
+        // ------- <Save> -------
+        // New map
+        HashMap<String, String> toBeSaved = new HashMap<String, String>();
+
+        // DataMap transcription
+        toBeSaved.put(langName, dataMap.get(langName));
+        toBeSaved.put(modeName, dataMap.get(modeName));
+
+        // ------- <FontMap transcription> -------
+        // Title
+        toBeSaved.put(titleFamilyName, fontMap.get(titleFontName).getFamily());
+        toBeSaved.put(titleStyleName, String.valueOf(fontMap.get(titleFontName).getStyle()));
+        toBeSaved.put(titleSizeName, String.valueOf(fontMap.get(titleFontName).getSize()));
+
+        // Subtitle
+        toBeSaved.put(subtitleFamilyName, fontMap.get(subtitleFontName).getFamily());
+        toBeSaved.put(subtitleStyleName, String.valueOf(fontMap.get(subtitleFontName).getStyle()));
+        toBeSaved.put(subtitleSizeName, String.valueOf(fontMap.get(subtitleFontName).getSize()));
+
+        // Selection
+        toBeSaved.put(selectionFamilyName, fontMap.get(selectionFontName).getFamily());
+        toBeSaved.put(selectionStyleName, String.valueOf(fontMap.get(selectionFontName).getStyle()));
+        toBeSaved.put(selectionSizeName, String.valueOf(fontMap.get(selectionFontName).getSize()));
+
+        // Input
+        toBeSaved.put(inputFamilyName, fontMap.get(inputFontName).getFamily());
+        toBeSaved.put(inputStyleName, String.valueOf(fontMap.get(inputFontName).getStyle()));
+        toBeSaved.put(inputSizeName, String.valueOf(fontMap.get(inputFontName).getSize()));
+        // ------- </FontMap transcription> -------
+        // ------- </Save> -------
+
+        // Save
+        writeXML(toBeSaved);
 
     }
 

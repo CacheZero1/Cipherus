@@ -3,13 +3,11 @@ package euorg.nuvoprojects.cachezero1.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -22,14 +20,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import euorg.nuvoprojects.cachezero1.SaveHandler;
 import euorg.nuvoprojects.cachezero1.ciphers.cryptor.Cryptor;
 
 public class CryptorPanel extends JPanel implements ActionListener {
 
     // Settings
-    private static Font titleFont;
-    private static Font subtitleFont;
-    private static Font inputFont;
+    private static SaveHandler saveHandler;
 
     // Components (Positioning)
     JPanel topPanel;
@@ -62,15 +59,11 @@ public class CryptorPanel extends JPanel implements ActionListener {
     String filePathSep = FileSystems.getDefault().getSeparator();
 
 
-    public CryptorPanel(HashMap<String, Font> fontMap, boolean darkMode) {
-
-        // Globals
-        titleFont = fontMap.get("title");
-        subtitleFont = fontMap.get("subtitle");
-        inputFont = fontMap.get("input");
+    public CryptorPanel(SaveHandler handler) {
 
         // Settings
         this.setLayout(new BorderLayout());
+        saveHandler = handler;
 
         // Populate Panel
         createPositioningComponents();
@@ -79,11 +72,12 @@ public class CryptorPanel extends JPanel implements ActionListener {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
         }
+        applyFonts();
         addGUIComponents();
 
     }
 
-
+    // Positioners
     private void createPositioningComponents() {
 
         // NORTH
@@ -126,39 +120,33 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
     }
 
+    // Functionals
     private void createFunctionalComponents() throws IOException {
 
         // JLabels
         formulaLabel = new JLabel("Formula:");
         formulaLabel.setFocusable(false);
         formulaLabel.setHorizontalAlignment(JLabel.RIGHT);
-        formulaLabel.setFont(subtitleFont);
 
         normalTextLabel = new JLabel("Normal Text:");
         normalTextLabel.setFocusable(false);
-        normalTextLabel.setFont(subtitleFont);
 
         cipheredTextLabel = new JLabel("Encrypted Text:");
         cipheredTextLabel.setFocusable(false);
-        cipheredTextLabel.setFont(subtitleFont);
 
         // Main components
         formulaField = new JTextField();
         formulaField.setHorizontalAlignment(JTextField.LEFT);
-        formulaField.setFont(inputFont);
 
         normalTextArea = new JTextArea();
-        normalTextArea.setFont(inputFont);
         normalTextArea.setLineWrap(true);
 
         cipheredTextArea = new JTextArea();
-        cipheredTextArea.setFont(inputFont);
         cipheredTextArea.setLineWrap(true);
 
         startButton = new JButton("Start");
         startButton.setHorizontalAlignment(JButton.CENTER);
         startButton.addActionListener(this);
-        startButton.setFont(titleFont);
 
         // Action selectors
         encryptRadioButton = new JRadioButton("Encrypt");
@@ -167,14 +155,12 @@ public class CryptorPanel extends JPanel implements ActionListener {
         encryptRadioButton.setFocusPainted(false);
         encryptRadioButton.addActionListener(this);
         encryptRadioButton.setSelected(true);
-        encryptRadioButton.setFont(titleFont);
 
         decryptRadioButton = new JRadioButton("Decrypt");
         decryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/decrypt_b.png")));
         decryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         decryptRadioButton.setFocusPainted(false);
         decryptRadioButton.addActionListener(this);
-        decryptRadioButton.setFont(titleFont);
 
         radioButtonOptionGroup = new ButtonGroup();
         radioButtonOptionGroup.add(encryptRadioButton);
@@ -182,6 +168,27 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
     }
 
+    // Font setting
+    public void applyFonts() {
+
+        // Title
+        encryptRadioButton.setFont(saveHandler.getFontMap().get(saveHandler.titleFontName));
+        decryptRadioButton.setFont(saveHandler.getFontMap().get(saveHandler.titleFontName));
+        startButton.setFont(saveHandler.getFontMap().get(saveHandler.titleFontName));
+
+        // Subtitle
+        formulaLabel.setFont(saveHandler.getFontMap().get(saveHandler.subtitleFontName));
+        normalTextLabel.setFont(saveHandler.getFontMap().get(saveHandler.subtitleFontName));
+        cipheredTextLabel.setFont(saveHandler.getFontMap().get(saveHandler.subtitleFontName));
+
+        // Input
+        formulaField.setFont(saveHandler.getFontMap().get(saveHandler.inputFontName));
+        normalTextArea.setFont(saveHandler.getFontMap().get(saveHandler.inputFontName));
+        cipheredTextArea.setFont(saveHandler.getFontMap().get(saveHandler.inputFontName));
+
+    }
+
+    // Addition
     private void addGUIComponents() {
 
         // NORTH
@@ -218,26 +225,11 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
     }
 
-    public void setNewFonts(Font newTitleFont, Font newSubtitleFont, Font newInputFont) {
-
-        encryptRadioButton.setFont(newTitleFont);
-        decryptRadioButton.setFont(newTitleFont);
-        startButton.setFont(newTitleFont);
-
-        formulaLabel.setFont(newSubtitleFont);
-        normalTextLabel.setFont(newSubtitleFont);
-        cipheredTextLabel.setFont(newSubtitleFont);
-
-        formulaField.setFont(newInputFont);
-        normalTextArea.setFont(newInputFont);
-        cipheredTextArea.setFont(newInputFont);
-
-    }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        // Encrypt label swap
         if (e.getSource() == encryptRadioButton) {
 
             preciseTL.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2, true));
@@ -248,6 +240,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
         }
 
+        // Decrypt label swap
         if (e.getSource() == decryptRadioButton) {
 
             preciseTL.setBorder(null);
@@ -258,8 +251,10 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
         }
 
+        // Start process
         if (e.getSource() == startButton) {
 
+            // Encrypt
             if (encryptRadioButton.isSelected()) {
 
                 try {
@@ -275,6 +270,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
                 }
                 
+            // Decrypt
             } else if (decryptRadioButton.isSelected()) {
 
                 try {

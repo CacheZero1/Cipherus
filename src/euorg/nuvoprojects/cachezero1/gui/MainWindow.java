@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
@@ -33,8 +31,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // Settings
     private static SaveHandler saveHandler;
-
-    private static HashMap<String, Font> mappedFonts;
 
     private String cipherName;
     private final String cryptorName = "cryptor";
@@ -103,7 +99,7 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         // Instances
-        cryptorPanel = new CryptorPanel(fontMap, darkMode);
+        cryptorPanel = new CryptorPanel(handler);
         tartarusPanel = new TartarusPanel();
 
         // Populate GUI
@@ -111,7 +107,7 @@ public class MainWindow extends JFrame implements ActionListener {
         createPositioningComponents();
         createFunctionalComponents();
         addGUIComponents();
-        applyFont(handler.getFontMap().get(saveHandler.subtitleFontName));
+        applyFont();
 
     }
 
@@ -235,7 +231,9 @@ public class MainWindow extends JFrame implements ActionListener {
     }
 
     // Apply fonts
-    private void applyFont(Font selectionFont) {
+    private void applyFont() {
+
+        Font selectionFont = saveHandler.getFontMap().get(saveHandler.subtitleFontName);
 
         cryptorButton.setFont(selectionFont);
         tartarusButton.setFont(selectionFont);
@@ -295,19 +293,9 @@ public class MainWindow extends JFrame implements ActionListener {
         // Font settings
         if (e.getSource() == fontMenuItem) {
 
-            FontMenu fontMenu = new FontMenu();
-            LinkedList<Object> returnedList = fontMenu.start(this, mappedFonts);
-
-            if (((Integer) returnedList.get(0)) == JOptionPane.OK_OPTION) {
-                LinkedList<Font> fontList = new LinkedList<Font>();
-                fontList.add((Font) returnedList.get(1));
-                fontList.add((Font) returnedList.get(2));
-                fontList.add((Font) returnedList.get(3));
-                fontList.add((Font) returnedList.get(4));
-                applyChanges(fontList);
-
-
-            }
+            new FontMenu(this, saveHandler);
+            applyFont();
+            cryptorPanel.applyFonts();
 
         }
 
