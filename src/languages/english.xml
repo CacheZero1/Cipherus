@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="err1">A graphical error has occured</entry>
+<entry key="err2">A calculation error has occured</entry>
+<entry key="err3">An error occured, whilst trying to write a file</entry>
+<entry key="err4">An error occured, whilst trying to read a file</entry>
+<entry key="err5">An error occured, whilst trying to save the file</entry>
+<entry key="exc1">Minor exception</entry>
+<entry key="exc2">Major exception</entry>
+<entry key="maiWinMenSet">Settings</entry>
+<entry key="maiWinMenHel">Help</entry>
+<entry key="maiWinMenSavTex">Save text</entry>
+<entry key="maiWinMenSavIma">Save image</entry>
+<entry key="maiWinMenAbo">About</entry>
+<entry key="maiWinMenExi">Exit</entry>
+<entry key="maiWinMenFon">Font</entry>
+<entry key="maiWinMenCol">Colour</entry>
+<entry key="maiWinMenLan">Language</entry>
+<entry key="maiWinMenCip">Ciphers</entry>
+<entry key="maiWinMenNav">Navigation</entry>
+<entry key="cryPanFor">Formula:</entry>
+<entry key="cryPanNorTex">Original text:</entry>
+<entry key="cryPanEncTex">Encrypted text:</entry>
+<entry key="cryPanSta">Start</entry>
+</properties>

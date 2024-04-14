@@ -4,7 +4,8 @@ import euorg.nuvoprojects.cachezero1.gui.MainWindow;
 
 public class Main {
 
-    private static SaveHandler handler = new SaveHandler(".");
+    private static LanguageHandler langHandler = new LanguageHandler();
+    private static SaveHandler handler = new SaveHandler(".", langHandler);
 
     public static void main(String[] args) {
 
@@ -21,7 +22,7 @@ public class Main {
         handler.setupSave();
 
         // Main window
-        MainWindow mainWindow = new MainWindow(version, handler);
+        MainWindow mainWindow = new MainWindow(version, handler, langHandler);
         mainWindow.setVisible(true);
 
     }    

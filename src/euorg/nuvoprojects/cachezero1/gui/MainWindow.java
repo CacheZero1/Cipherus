@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import euorg.nuvoprojects.cachezero1.LanguageHandler;
 import euorg.nuvoprojects.cachezero1.SaveHandler;
 import euorg.nuvoprojects.cachezero1.menugui.AboutMenu;
 import euorg.nuvoprojects.cachezero1.menugui.FontMenu;
@@ -31,6 +32,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // Settings
     private static SaveHandler saveHandler;
+    private static LanguageHandler languageHandler;
 
     private String cipherName;
     private final String cryptorName = "cryptor";
@@ -77,10 +79,11 @@ public class MainWindow extends JFrame implements ActionListener {
     String filePathSep = FileSystems.getDefault().getSeparator();
     
 
-    public MainWindow(String version, SaveHandler handler) {
+    public MainWindow(String version, SaveHandler handler, LanguageHandler langHandler) {
 
         // Globals
         saveHandler = handler;
+        languageHandler = langHandler;
 
         // Normal settings
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +98,7 @@ public class MainWindow extends JFrame implements ActionListener {
         try {
             this.setIconImage(ImageIO.read(getClass().getResource("/images/icon_128px.png")));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.graErr), langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.minErr), JOptionPane.ERROR_MESSAGE);
         }
 
         // Instances
@@ -119,23 +122,23 @@ public class MainWindow extends JFrame implements ActionListener {
         menuBar = new JMenuBar();
 
         cipherusMenu = new JMenu("Cipherus");
-        settingsMenu = new JMenu("Settings");
-        helpMenu = new JMenu("Help");
+        settingsMenu = new JMenu(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menSet));
+        helpMenu = new JMenu(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menHel));
 
         // Cipherus Menu
-        saveTextMenuItem = new JMenuItem("Save Text");
-        saveImageMenuItem = new JMenuItem("Save Image");
-        aboutMenuItem = new JMenuItem("About");
-        exitMenuItem = new JMenuItem("Exit");
+        saveTextMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menSavTex));
+        saveImageMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menSavIma));
+        aboutMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menAbo));
+        exitMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menExi));
         
         // Settings Menu
-        fontMenuItem = new JMenuItem("Font");
-        colourMenuItem = new JMenuItem("Colour");
-        languageMenuItem = new JMenuItem("Language");
+        fontMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menFon));
+        colourMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menCol));
+        languageMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menLan));
 
         // Help
-        encodersHelpMenuItem = new JMenuItem("Ciphers");
-        applicationHelpMenuItem = new JMenuItem("Navigation");
+        encodersHelpMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menCip));
+        applicationHelpMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menNav));
 
 
         // ActionListeners //TODO: add functionalities to other menus

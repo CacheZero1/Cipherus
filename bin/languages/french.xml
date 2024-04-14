@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="err1">Une erreur graphique s'est produit</entry>
+<entry key="err2">Une erreur de calcul s'est produit</entry>
+<entry key="err3">Une erreur s'est produit, lors de la tentative d'écrire un fichier</entry>
+<entry key="err4">Une erreur s'est produit, lors de la tentative de lire un fichier</entry>
+<entry key="err5">Une erreur s'est produit, lors de la tentative d'enregistrer le fichier</entry>
+<entry key="exc1">Exception mineure</entry>
+<entry key="exc2">Exception majeure</entry>
+<entry key="maiWinMenSet">Paramètres</entry>
+<entry key="maiWinMenHel">Aide</entry>
+<entry key="maiWinMenSavTex">Enregistrer le texte</entry>
+<entry key="maiWinMenSavIma">Enregistrer l'image</entry>
+<entry key="maiWinMenAbo">Environ cet</entry>
+<entry key="maiWinMenExi">Quitter</entry>
+<entry key="maiWinMenFon">Police de caractères</entry>
+<entry key="maiWinMenCol">Couleur</entry>
+<entry key="maiWinMenLan">Langue</entry>
+<entry key="maiWinMenCip">Chiffrements</entry>
+<entry key="maiWinMenNav">Navigation</entry>
+<entry key="cryPanFor">Formule:</entry>
+<entry key="cryPanNorTex">Le text original:</entry>
+<entry key="cryPanEncTex">Le text chiffré:</entry>
+<entry key="cryPanSta">Commencer</entry>
+</properties>

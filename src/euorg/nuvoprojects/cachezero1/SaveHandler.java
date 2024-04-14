@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class SaveHandler {
 
     // Important
+    private static LanguageHandler languageHandler;
     private final String savePath;
     private File saveFile;
     private Properties properties;
@@ -57,7 +58,8 @@ public class SaveHandler {
     // ------- </Getters> -------
     
     // Initiate class
-    public SaveHandler(String desiredPath) {
+    public SaveHandler(String desiredPath, LanguageHandler langHandler) {
+        languageHandler = langHandler;
         this.savePath = desiredPath + "/cipherusSave.xml";
         saveFile = new File(savePath);
     }
@@ -93,7 +95,7 @@ public class SaveHandler {
             }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "An error occured, whilst trying to write a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, languageHandler.getLangMap(entryMap.get(langName)).get(languageHandler.wriFilErr), languageHandler.getLangMap(entryMap.get(langName)).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -113,7 +115,7 @@ public class SaveHandler {
             });
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "An error occured, whilst trying to read a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(languageHandler.reaFilErr), languageHandler.getLangMap(getLanguage()).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
             properties = new Properties();
         }
 
@@ -191,7 +193,7 @@ public class SaveHandler {
             try {
                 saveFile.createNewFile();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "An error occured, whilst trying to write a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(languageHandler.wriFilErr), languageHandler.getLangMap(getLanguage()).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
             }
 
             // Create default mappings
@@ -215,7 +217,7 @@ public class SaveHandler {
                 fontMap.put(inputFontName, new Font(stored.get(inputFamilyName), Integer.valueOf(stored.get(inputStyleName)), Integer.valueOf(stored.get(inputSizeName))));
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "An error occured, whilst trying to read a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(languageHandler.reaFilErr), languageHandler.getLangMap(getLanguage()).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
             }
 
         }

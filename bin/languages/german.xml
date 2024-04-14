@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="err1">Ein grafischer Fehler ist aufgetreten</entry>
+<entry key="err2">Ein berechnungsfehler ist aufgetreten</entry>
+<entry key="err3">Während des Versuchs eine Datei zu schreiben, trat ein Fehler auf</entry>
+<entry key="err4">Während des Versuchs eine Datei zu lesen, trat ein Fehler auf</entry>
+<entry key="err5">Ein Fehler ist aufgetreten, beim Versuch die Datei zu speichern</entry>
+<entry key="exc1">Dezenter Fehler</entry>
+<entry key="exc2">Gravierender Fehler</entry>
+<entry key="maiWinMenSet">Einstellungen</entry>
+<entry key="maiWinMenHel">Hilfe</entry>
+<entry key="maiWinMenSavTex">Text speichern</entry>
+<entry key="maiWinMenSavIma">Bild speichern</entry>
+<entry key="maiWinMenAbo">Über</entry>
+<entry key="maiWinMenExi">Schließen</entry>
+<entry key="maiWinMenFon">Schriftart</entry>
+<entry key="maiWinMenCol">Farbe</entry>
+<entry key="maiWinMenLan">Sprache</entry>
+<entry key="maiWinMenCip">Chiffren</entry>
+<entry key="maiWinMenNav">Navigation</entry>
+<entry key="cryPanFor">Formel:</entry>
+<entry key="cryPanNorTex">Originaler Text:</entry>
+<entry key="cryPanEncTex">Verschlüsselter Text:</entry>
+<entry key="cryPanSta">Start</entry>
+</properties>
