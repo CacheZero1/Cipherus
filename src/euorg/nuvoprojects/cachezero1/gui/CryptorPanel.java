@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -20,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import euorg.nuvoprojects.cachezero1.LanguageHandler;
 import euorg.nuvoprojects.cachezero1.SaveHandler;
 import euorg.nuvoprojects.cachezero1.ciphers.cryptor.Cryptor;
 
@@ -27,6 +29,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
     // Settings
     private static SaveHandler saveHandler;
+    private static LanguageHandler languageHandler;
 
     // Components (Positioning)
     JPanel topPanel;
@@ -59,19 +62,21 @@ public class CryptorPanel extends JPanel implements ActionListener {
     String filePathSep = FileSystems.getDefault().getSeparator();
 
 
-    public CryptorPanel(SaveHandler handler) {
+    public CryptorPanel(SaveHandler handler, LanguageHandler langHandler) {
 
         // Settings
         this.setLayout(new BorderLayout());
         saveHandler = handler;
+        languageHandler = langHandler;
 
         // Populate Panel
         createPositioningComponents();
         try {
             createFunctionalComponents();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "A graphical error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.graErr), langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.minErr), JOptionPane.ERROR_MESSAGE);
         }
+        applyTexts();
         applyFonts();
         addGUIComponents();
 
@@ -124,14 +129,14 @@ public class CryptorPanel extends JPanel implements ActionListener {
     private void createFunctionalComponents() throws IOException {
 
         // JLabels
-        formulaLabel = new JLabel("Formula:");
+        formulaLabel = new JLabel();
         formulaLabel.setFocusable(false);
         formulaLabel.setHorizontalAlignment(JLabel.RIGHT);
 
-        normalTextLabel = new JLabel("Normal Text:");
+        normalTextLabel = new JLabel();
         normalTextLabel.setFocusable(false);
 
-        cipheredTextLabel = new JLabel("Encrypted Text:");
+        cipheredTextLabel = new JLabel();
         cipheredTextLabel.setFocusable(false);
 
         // Main components
@@ -144,19 +149,19 @@ public class CryptorPanel extends JPanel implements ActionListener {
         cipheredTextArea = new JTextArea();
         cipheredTextArea.setLineWrap(true);
 
-        startButton = new JButton("Start");
+        startButton = new JButton();
         startButton.setHorizontalAlignment(JButton.CENTER);
         startButton.addActionListener(this);
 
         // Action selectors
-        encryptRadioButton = new JRadioButton("Encrypt");
+        encryptRadioButton = new JRadioButton();
         encryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/encrypt_b.png")));
         encryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         encryptRadioButton.setFocusPainted(false);
         encryptRadioButton.addActionListener(this);
         encryptRadioButton.setSelected(true);
 
-        decryptRadioButton = new JRadioButton("Decrypt");
+        decryptRadioButton = new JRadioButton();
         decryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/decrypt_b.png")));
         decryptRadioButton.setHorizontalAlignment(JRadioButton.CENTER);
         decryptRadioButton.setFocusPainted(false);
@@ -165,6 +170,25 @@ public class CryptorPanel extends JPanel implements ActionListener {
         radioButtonOptionGroup = new ButtonGroup();
         radioButtonOptionGroup.add(encryptRadioButton);
         radioButtonOptionGroup.add(decryptRadioButton);
+
+    }
+
+    // Set texts
+    public void applyTexts() {
+
+        HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName));
+
+        // Labels
+        formulaLabel.setText(textMap.get(languageHandler.cryPanFor));
+        normalTextLabel.setText(textMap.get(languageHandler.cryPanNorTex));
+        cipheredTextLabel.setText(textMap.get(languageHandler.cryPanEncTex));
+
+        // Button
+        startButton.setText(textMap.get(languageHandler.cryPanSta));
+
+        // RadioButton
+        encryptRadioButton.setText(textMap.get(languageHandler.cryPanEnc));
+        decryptRadioButton.setText(textMap.get(languageHandler.cryPanDec));
 
     }
 
@@ -235,8 +259,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
             preciseTL.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2, true));
             preciseTR.setBorder(null);
 
-            normalTextLabel.setText("Normal Text:");
-            cipheredTextLabel.setText("Encrypted Text:");
+            normalTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanNorTex));
+            cipheredTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanEncTex));
 
         }
 
@@ -246,8 +270,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
             preciseTL.setBorder(null);
             preciseTR.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2, true));
 
-            normalTextLabel.setText("Encrypted Text:");
-            cipheredTextLabel.setText("Normal Text:");
+            normalTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanEncTex));
+            cipheredTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanNorTex));
 
         }
 
@@ -266,8 +290,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     
                 } catch (Exception encryptionError) {
                     encryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "A calculation error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
-
+                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.calErr), languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.minErr), JOptionPane.ERROR_MESSAGE);
                 }
                 
             // Decrypt
@@ -282,8 +305,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
                 } catch (Exception decryptionError) {
                     decryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "A calculation error has occured", "Minor Exception", JOptionPane.ERROR_MESSAGE);
-
+                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.calErr), languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.minErr), JOptionPane.ERROR_MESSAGE);
                 }
 
             }

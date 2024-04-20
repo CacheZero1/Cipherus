@@ -23,4 +23,27 @@
 <entry key="cryPanNorTex">Originaler Text:</entry>
 <entry key="cryPanEncTex">Verschlüsselter Text:</entry>
 <entry key="cryPanSta">Start</entry>
+<entry key="cryPanEnc">Encodieren</entry>
+<entry key="cryPanDec">Decodieren</entry>
+<entry key="savTexSavTex">Text speichern</entry>
+<entry key="savTexSav">Speichern</entry>
+<entry key="savTexLef">Text links</entry>
+<entry key="savTexRig">Text rechts</entry>
+<entry key="fonMenStyPla">Blank</entry>
+<entry key="fonMenStyBol">Fett</entry>
+<entry key="fonMenStyIta">Kursiv</entry>
+<entry key="fonMenFam">Familie</entry>
+<entry key="fonMenSty">Stil</entry>
+<entry key="fonMenSiz">Größe</entry>
+<entry key="fonMenTit">Titel</entry>
+<entry key="fonMenSub">Untertitel</entry>
+<entry key="fonMenSel">Auswahl</entry>
+<entry key="fonMenInp">Eingabe</entry>
+<entry key="fonMenFonSet">Schrifteinstellungen</entry>
+<entry key="aboMenTit">Über Cipherus</entry>
+<entry key="aboMenOk">Ok</entry>
+<entry key="aboMenDes1">Ver- und entschlüsseln sie Nachrichten, sei es im Textformat oder im Bildformat.</entry>
+<entry key="aboMenDes2">Alles in einer Benutzeroberfläche, programmiert um (hoffentlich) zu beeindrucken.</entry>
+<entry key="aboMenDes3">Cipherus © 2024 von CacheZero1 ist lizensiert unter Attribution 4.0 International</entry>
+<entry key="lanMenTit">Spracheinstellungen</entry>
 </properties>

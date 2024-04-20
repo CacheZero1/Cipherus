@@ -1,9 +1,8 @@
 package euorg.nuvoprojects.cachezero1;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
@@ -15,9 +14,9 @@ public class LanguageHandler {
     private final String frenchLangPath = "/languages/french.xml";
     private final String englishLangPath = "/languages/english.xml";
 
-    private File germanFile;
-    private File frenchFile;
-    private File englishFile;
+    private String germanFile;
+    private String frenchFile;
+    private String englishFile;
 
     private Properties properties;
 
@@ -49,24 +48,26 @@ public class LanguageHandler {
     public final String cryPanNorTex = "cryPanNorTex";
     public final String cryPanEncTex = "cryPanEncTex";
     public final String cryPanSta = "cryPanSta";
+    public final String cryPanEnc = "cryPanEnc";
+    public final String cryPanDec = "cryPanDec";
     // ------- </Getters> -------
 
     // Initiate class
     public LanguageHandler() {
-        this.germanFile = new File(getClass().getResource(this.germanLangPath).getFile());
-        this.frenchFile = new File(getClass().getResource(this.frenchLangPath).getFile());
-        this.englishFile = new File(getClass().getResource(this.englishLangPath).getFile());
+        this.germanFile = this.germanLangPath;
+        this.frenchFile = this.frenchLangPath;
+        this.englishFile = this.englishLangPath;
     }
 
     // Read from the file
-    private HashMap<String, String> readXML(File file) {
+    private HashMap<String, String> readXML(String file) {
 
         HashMap<String, String> map = new HashMap<>();
 
         try {
 
             properties = new Properties();
-            InputStream inputStream = new FileInputStream(file);
+            InputStream inputStream = getClass().getResourceAsStream(file);
             properties.loadFromXML(inputStream);
 
             properties.forEach((key, value) -> {
@@ -74,12 +75,44 @@ public class LanguageHandler {
             });
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "An error occured, whilst trying to read a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+
+            switch (getLanguage()) {
+                case "de":
+                    JOptionPane.showMessageDialog(null, "Während des Versuchs eine Datei zu lesen, trat ein Fehler auf", "Gravierender Fehler", JOptionPane.ERROR_MESSAGE);
+                    break;
+
+                case "fr":
+                    JOptionPane.showMessageDialog(null, "Une erreur s'est produit, lors de la tentative de lire un fichier", "Exception majeure", JOptionPane.ERROR_MESSAGE);
+                    break;
+            
+                default:
+                    JOptionPane.showMessageDialog(null, "An error occured, whilst trying to read a file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+
             properties = new Properties();
+
+            e.printStackTrace();
         }
 
         return map;
 
+    }
+
+    // Return lang String
+    private static String getLanguage() {
+        try {
+            String lang = Locale.getDefault().getLanguage();
+
+            if (lang.isBlank()) {
+                return "en";
+            }
+
+            return lang;
+            
+        } catch (Exception e) {
+            return "en";
+        }
     }
 
     // Get langMap

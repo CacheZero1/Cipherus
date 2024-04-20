@@ -96,6 +96,7 @@ public class SaveHandler {
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, languageHandler.getLangMap(entryMap.get(langName)).get(languageHandler.wriFilErr), languageHandler.getLangMap(entryMap.get(langName)).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
@@ -117,6 +118,7 @@ public class SaveHandler {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(languageHandler.reaFilErr), languageHandler.getLangMap(getLanguage()).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
             properties = new Properties();
+            e.printStackTrace();
         }
 
         return map;
@@ -194,6 +196,7 @@ public class SaveHandler {
                 saveFile.createNewFile();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(languageHandler.wriFilErr), languageHandler.getLangMap(getLanguage()).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
 
             // Create default mappings
@@ -218,6 +221,7 @@ public class SaveHandler {
                 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(languageHandler.reaFilErr), languageHandler.getLangMap(getLanguage()).get(languageHandler.majErr), JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
 
         }

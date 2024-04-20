@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
@@ -25,6 +26,7 @@ import euorg.nuvoprojects.cachezero1.LanguageHandler;
 import euorg.nuvoprojects.cachezero1.SaveHandler;
 import euorg.nuvoprojects.cachezero1.menugui.AboutMenu;
 import euorg.nuvoprojects.cachezero1.menugui.FontMenu;
+import euorg.nuvoprojects.cachezero1.menugui.LanguageMenu;
 import euorg.nuvoprojects.cachezero1.menugui.SaveImageMenu;
 import euorg.nuvoprojects.cachezero1.menugui.SaveTextMenu;
 
@@ -102,7 +104,7 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         // Instances
-        cryptorPanel = new CryptorPanel(handler);
+        cryptorPanel = new CryptorPanel(handler, langHandler);
         tartarusPanel = new TartarusPanel();
 
         // Populate GUI
@@ -110,6 +112,7 @@ public class MainWindow extends JFrame implements ActionListener {
         createPositioningComponents();
         createFunctionalComponents();
         addGUIComponents();
+        applyTexts();
         applyFont();
 
     }
@@ -122,23 +125,23 @@ public class MainWindow extends JFrame implements ActionListener {
         menuBar = new JMenuBar();
 
         cipherusMenu = new JMenu("Cipherus");
-        settingsMenu = new JMenu(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menSet));
-        helpMenu = new JMenu(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menHel));
+        settingsMenu = new JMenu();
+        helpMenu = new JMenu();
 
         // Cipherus Menu
-        saveTextMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menSavTex));
-        saveImageMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menSavIma));
-        aboutMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menAbo));
-        exitMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menExi));
+        saveTextMenuItem = new JMenuItem();
+        saveImageMenuItem = new JMenuItem();
+        aboutMenuItem = new JMenuItem();
+        exitMenuItem = new JMenuItem();
         
         // Settings Menu
-        fontMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menFon));
-        colourMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menCol));
-        languageMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menLan));
+        fontMenuItem = new JMenuItem();
+        colourMenuItem = new JMenuItem();
+        languageMenuItem = new JMenuItem();
 
         // Help
-        encodersHelpMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menCip));
-        applicationHelpMenuItem = new JMenuItem(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.menNav));
+        encodersHelpMenuItem = new JMenuItem();
+        applicationHelpMenuItem = new JMenuItem();
 
 
         // ActionListeners //TODO: add functionalities to other menus
@@ -233,10 +236,33 @@ public class MainWindow extends JFrame implements ActionListener {
 
     }
 
+    // Set texts
+    private void applyTexts() {
+
+        HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName));
+
+        // Menu
+        settingsMenu.setText(textMap.get(languageHandler.menSet));
+        helpMenu.setText(textMap.get(languageHandler.menHel));
+
+        saveTextMenuItem.setText(textMap.get(languageHandler.menSavTex));
+        saveImageMenuItem.setText(textMap.get(languageHandler.menSavIma));
+        aboutMenuItem.setText(textMap.get(languageHandler.menAbo));
+        exitMenuItem.setText(textMap.get(languageHandler.menExi));
+        
+        fontMenuItem.setText(textMap.get(languageHandler.menFon));
+        colourMenuItem.setText(textMap.get(languageHandler.menCol));
+        languageMenuItem.setText(textMap.get(languageHandler.menLan));
+
+        encodersHelpMenuItem.setText(textMap.get(languageHandler.menCip));
+        applicationHelpMenuItem.setText(textMap.get(languageHandler.menNav));
+
+    }
+
     // Apply fonts
     private void applyFont() {
 
-        Font selectionFont = saveHandler.getFontMap().get(saveHandler.subtitleFontName);
+        Font selectionFont = saveHandler.getFontMap().get(saveHandler.selectionFontName);
 
         cryptorButton.setFont(selectionFont);
         tartarusButton.setFont(selectionFont);
@@ -270,12 +296,15 @@ public class MainWindow extends JFrame implements ActionListener {
         // ------- <Menu clicks> -------
         // Save text
         if (e.getSource() == saveTextMenuItem) {
+
+            HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName));
+
             switch(cipherName) {
                 case tartarusName:
                     break; //TODO: add tartarus
 
                 case cryptorName:
-                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()));
+                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()), textMap);
                     break;
 
                 default:
@@ -290,13 +319,13 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // About page
         if (e.getSource() == aboutMenuItem) {
-            new AboutMenu(this);
+            new AboutMenu(this, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName))); // TODO:
         }
 
         // Font settings
         if (e.getSource() == fontMenuItem) {
 
-            new FontMenu(this, saveHandler);
+            new FontMenu(this, saveHandler, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName))); // TODO:
             applyFont();
             cryptorPanel.applyFonts();
 
@@ -309,7 +338,11 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Language settings
         if (e.getSource() == languageMenuItem) {
-            
+
+            new LanguageMenu(this, saveHandler, languageHandler);
+            applyTexts();
+            cryptorPanel.applyTexts();
+
         }
         // ------- </Menu clicks> -------
 

@@ -23,4 +23,27 @@
 <entry key="cryPanNorTex">Original text:</entry>
 <entry key="cryPanEncTex">Encrypted text:</entry>
 <entry key="cryPanSta">Start</entry>
+<entry key="cryPanEnc">Encrypt</entry>
+<entry key="cryPanDec">Decrypt</entry>
+<entry key="savTexSavTex">Save Text</entry>
+<entry key="savTexSav">Save</entry>
+<entry key="savTexLef">Text left</entry>
+<entry key="savTexRig">Text right</entry>
+<entry key="fonMenStyPla">Plain</entry>
+<entry key="fonMenStyBol">Bold</entry>
+<entry key="fonMenStyIta">Italic</entry>
+<entry key="fonMenFam">Family</entry>
+<entry key="fonMenSty">Style</entry>
+<entry key="fonMenSiz">Size</entry>
+<entry key="fonMenTit">Title</entry>
+<entry key="fonMenSub">Subtitle</entry>
+<entry key="fonMenSel">Selection</entry>
+<entry key="fonMenInp">Input</entry>
+<entry key="fonMenFonSet">Font settings</entry>
+<entry key="aboMenTit">About Cipherus</entry>
+<entry key="aboMenOk">Ok</entry>
+<entry key="aboMenDes1">Encrypt and decrypt messages, be it in Text-format, or in Image-format.</entry>
+<entry key="aboMenDes2">All within a GUI, made to (hopefully) impress.</entry>
+<entry key="aboMenDes3">Cipherus © 2024 by CacheZero1 is licensed under Attribution 4.0 International</entry>
+<entry key="lanMenTit">Language settings</entry>
 </properties>

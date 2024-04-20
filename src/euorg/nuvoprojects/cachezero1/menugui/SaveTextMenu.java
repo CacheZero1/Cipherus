@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -17,6 +18,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class SaveTextMenu extends JOptionPane implements ActionListener {
+
+    // Lang map
+    private static HashMap<String, String> langMap;
+
+    // LangMap IDs
+    private final String savTexMenSavTex = "savTexSavTex";
+    private final String savTexMenSav = "savTexSav";
+    private final String savTexMenTexLef = "savTexLef";
+    private final String savTexMenTexRig = "savTexRig";
+    private final String savTexMenErrMes = "err5";
+    private final String savTexMenMajErr = "exc2";
 
     // Components (positioning)
     JPanel mainPanel;
@@ -30,8 +42,9 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
     List<String> parsedText;
 
 
-    public SaveTextMenu(Component parent, List<String> text) {
+    public SaveTextMenu(Component parent, List<String> text, HashMap<String, String> textMap) {
 
+        langMap = textMap;
         this.parsedText = text;
 
         switch (text.size()) {
@@ -50,7 +63,7 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
         SaveTextMenu.showConfirmDialog(
             parent, 
             mainPanel, 
-            "Save Text", 
+            textMap.get(savTexMenSavTex), 
             JOptionPane.CANCEL_OPTION,
             JOptionPane.PLAIN_MESSAGE
         );
@@ -70,7 +83,7 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
         textArea.setFocusable(false);
 
         // Save button
-        saveButton = new JButton("Save");
+        saveButton = new JButton(langMap.get(savTexMenSav));
         saveButton.addActionListener(this);
 
         // Add all
@@ -85,7 +98,7 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
         mainPanel = new JPanel(new BorderLayout());
 
         // ComboBox
-        comboBox = new JComboBox<String>(new String[]{"Text left", "Text right"});
+        comboBox = new JComboBox<String>(new String[]{langMap.get(savTexMenTexLef), langMap.get(savTexMenTexRig)});
         comboBox.addActionListener(this);
 
         // TextArea
@@ -96,7 +109,7 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
         textArea.setFocusable(false);
 
         // Save button
-        saveButton = new JButton("Save");
+        saveButton = new JButton(langMap.get(savTexMenSav));
         saveButton.addActionListener(this);
 
         // Add all
@@ -127,7 +140,7 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
                     
                 } catch (Exception writeException) {
                     
-                    JOptionPane.showMessageDialog(null, "An error occured, whilst trying to save the file", "Major Exception", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, langMap.get(savTexMenErrMes), langMap.get(savTexMenMajErr), JOptionPane.ERROR_MESSAGE);
 
                 } finally {
 
@@ -143,11 +156,11 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
 
             textArea.setEditable(true);
 
-            if (comboBox.getSelectedItem().equals("Text left")) {
+            if (comboBox.getSelectedItem().equals(langMap.get(savTexMenTexLef))) {
 
                 textArea.setText(parsedText.get(0));
 
-            } else if (comboBox.getSelectedItem().equals("Text right")) {
+            } else if (comboBox.getSelectedItem().equals(langMap.get(savTexMenTexRig))) {
 
                 textArea.setText(parsedText.get(1));
                 

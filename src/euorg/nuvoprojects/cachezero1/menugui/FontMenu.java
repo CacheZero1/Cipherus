@@ -24,10 +24,24 @@ import euorg.nuvoprojects.cachezero1.SaveHandler;
 
 public class FontMenu extends JOptionPane implements ActionListener, ChangeListener {
 
+    // Lang Strings
+    private final String plainStyleGet = "fonMenStyPla";
+    private final String boldStyleGet = "fonMenStyBol";
+    private final String italicStyleGet = "fonMenStyIta";
+    private final String familyGet = "fonMenFam";
+    private final String styleGet = "fonMenSty";
+    private final String sizeGet = "fonMenSiz";
+    private final String titleGet = "fonMenTit";
+    private final String subtitleGet = "fonMenSub";
+    private final String selectionGet = "fonMenSel";
+    private final String inputGet = "fonMenInp";
+    private final String fontSettingsGet = "fonMenFonSet";
+
     // Globals
+    private static HashMap<String, String> langMap;
     private Font globalFont = new Font(null, Font.PLAIN, 20);
     String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-    String[] styles = new String[]{"Plain", "Bold", "Italic"};
+    String[] styles;
 
     private Font titleFont;
     private Font subtitleFont;
@@ -65,14 +79,14 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
     // ------- <Functional components> -------
     // Labels
-    JLabel familyLabel = new JLabel("Family");
-    JLabel styleLabel = new JLabel("Style");
-    JLabel sizeLabel = new JLabel("Size");
+    JLabel familyLabel;
+    JLabel styleLabel;
+    JLabel sizeLabel;
 
-    JLabel titleLabel = new JLabel("Title");
-    JLabel subtitleLabel = new JLabel("Subtitle");
-    JLabel selectionLabel = new JLabel("Selection");
-    JLabel inputLabel = new JLabel("Input");
+    JLabel titleLabel;
+    JLabel subtitleLabel;
+    JLabel selectionLabel;
+    JLabel inputLabel;
 
     // ComboBoxes
     JComboBox<String> titleFamilyBox = new JComboBox<String>(fonts);
@@ -80,10 +94,10 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     JComboBox<String> selectionFamilyBox = new JComboBox<String>(fonts);
     JComboBox<String> inputFamilyBox = new JComboBox<String>(fonts);
 
-    JComboBox<String> titleStyleBox = new JComboBox<String>(styles);
-    JComboBox<String> subtitleStyleBox = new JComboBox<String>(styles);
-    JComboBox<String> selectionStyleBox = new JComboBox<String>(styles);
-    JComboBox<String> inputStyleBox = new JComboBox<String>(styles);
+    JComboBox<String> titleStyleBox;
+    JComboBox<String> subtitleStyleBox;
+    JComboBox<String> selectionStyleBox;
+    JComboBox<String> inputStyleBox;
 
     // Sliders
     JSlider titleSizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 36, 20);
@@ -93,7 +107,12 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     // ------- </Functional components> -------
 
     // Start
-    public FontMenu(Component parent, SaveHandler saveHandler) {
+    public FontMenu(Component parent, SaveHandler saveHandler, HashMap<String, String> textMap) {
+
+        langMap = textMap;
+
+        // Set text
+        applyTexts();
 
         // Set fonts
         titleFont = saveHandler.getFontMap().get(saveHandler.titleFontName);
@@ -110,7 +129,7 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         int chosenOption = FontMenu.showConfirmDialog(
             parent, 
             mainPanel, 
-            "Font settings", 
+            langMap.get(fontSettingsGet), 
             JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.PLAIN_MESSAGE
         );
@@ -282,43 +301,62 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
     }
 
-    // Apply the fonts
-    public void applyFonts() {
+    // Apply the language
+    public void applyTexts() {
 
+        styles = new String[]{langMap.get(plainStyleGet), langMap.get(boldStyleGet), langMap.get(italicStyleGet)};
 
+        familyLabel = new JLabel(langMap.get(familyGet));
+        styleLabel = new JLabel(langMap.get(styleGet));
+        sizeLabel = new JLabel(langMap.get(sizeGet));
+
+        titleLabel = new JLabel(langMap.get(titleGet));
+        subtitleLabel = new JLabel(langMap.get(subtitleGet));
+        selectionLabel = new JLabel(langMap.get(selectionGet));
+        inputLabel = new JLabel(langMap.get(inputGet));
+
+        titleStyleBox = new JComboBox<String>(styles);
+        subtitleStyleBox = new JComboBox<String>(styles);
+        selectionStyleBox = new JComboBox<String>(styles);
+        inputStyleBox = new JComboBox<String>(styles);
 
     }
 
-    private int determineStyle(String styleString) {
-        switch (styleString) {
-            case "Plain":
-                return Font.PLAIN;
-            
-            case "Bold":
-                return Font.BOLD;
 
-            case "Italic":
-                return Font.ITALIC;
-        
-            default:
-                return Font.PLAIN;
-        }
+    private int determineStyle(String styleString) {
+
+        if (styleString.equals(langMap.get(plainStyleGet))) {
+
+            return Font.PLAIN;
+
+        } else if (styleString.equals(langMap.get(boldStyleGet))) {
+
+            return Font.BOLD;
+
+        } else if (styleString.equals(langMap.get(italicStyleGet))) {
+
+            return Font.ITALIC;
+
+        } else { return Font.PLAIN; }
+
     }
 
     private String determineStyleName(Integer styleInt) {
-        switch (styleInt) {
-            case Font.PLAIN:
-                return "Plain";
-                
-            case Font.BOLD:
-                return "Bold";
 
-            case Font.ITALIC:
-                return "Italic";
+        if (styleInt.equals(Font.PLAIN)) {
+
+            return langMap.get(plainStyleGet);
+
+        } else if (styleInt.equals(Font.BOLD)) {
+
+            return langMap.get(boldStyleGet);
+
+        } else if (styleInt.equals(Font.ITALIC)) {
+
+            return langMap.get(italicStyleGet);
+
+        } else { return langMap.get(plainStyleGet); }
         
-            default:
-                return "Plain";
-        }
     }
 
 

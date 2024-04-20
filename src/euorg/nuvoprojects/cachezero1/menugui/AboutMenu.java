@@ -1,25 +1,29 @@
 package euorg.nuvoprojects.cachezero1.menugui;
 
 import java.awt.Component;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class AboutMenu extends JOptionPane {
 
-    public AboutMenu(Component parent) {
+    private final String aboMenDes1 = "aboMenDes1";
+    private final String aboMenDes2 = "aboMenDes2";
+    private final String aboMenDes3 = "aboMenDes3";
+    private final String aboMenTit = "aboMenTit";
+    private final String aboMenOk = "aboMenOk";
+
+    public AboutMenu(Component parent, HashMap<String, String> langMap) {
 
         AboutMenu.showOptionDialog(
             parent, 
-            "Encrypt and decrypt messages, be it in Text-format, or in Image-format.\n" +
-            "All within a GUI, made to (hopefully) impress.\n" +
-            "\n" +
-            "Cipherus © 2024 by CacheZero1 is licensed under Attribution 4.0 International", 
-            "About Cipherus", 
+            langMap.get(aboMenDes1) + "\n" + langMap.get(aboMenDes2) + "\n\n" + langMap.get(aboMenDes3),
+            langMap.get(aboMenTit), 
             JOptionPane.OK_CANCEL_OPTION, 
             JOptionPane.INFORMATION_MESSAGE, 
             new ImageIcon(getClass().getResource("/images/icon_64px.png")), 
-            new String[]{"Ok"}, 
+            new String[]{langMap.get(aboMenOk)},
             0
         );
 

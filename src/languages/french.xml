@@ -23,4 +23,27 @@
 <entry key="cryPanNorTex">Le text original:</entry>
 <entry key="cryPanEncTex">Le text chiffré:</entry>
 <entry key="cryPanSta">Commencer</entry>
+<entry key="cryPanEnc">Encoder</entry>
+<entry key="cryPanDec">Décoder</entry>
+<entry key="savTexSavTex">Enregistrer le text</entry>
+<entry key="savTexSav">Enregistrer</entry>
+<entry key="savTexLef">Text à gauche</entry>
+<entry key="savTexRig">Text à droit</entry>
+<entry key="fonMenStyPla">Unie</entry>
+<entry key="fonMenStyBol">En gras</entry>
+<entry key="fonMenStyIta">Italique</entry>
+<entry key="fonMenFam">Famille</entry>
+<entry key="fonMenSty">Style</entry>
+<entry key="fonMenSiz">Taille de</entry>
+<entry key="fonMenTit">Titre</entry>
+<entry key="fonMenSub">Sous-titre</entry>
+<entry key="fonMenSel">Sélection</entry>
+<entry key="fonMenInp">Entrée</entry>
+<entry key="fonMenFonSet">Paramètres de police</entry>
+<entry key="aboMenTit">Environ Cipherus</entry>
+<entry key="aboMenOk">D'accord</entry>
+<entry key="aboMenDes1">Encrypter et décrypter messages, être ça dans le format de text ou le format d'image.</entry>
+<entry key="aboMenDes2">Tous dans un GUI, programmé pour (espérons-le) impressionner.</entry>
+<entry key="aboMenDes3">Cipherus © 2024 par CacheZero1 est sous licence Attribution 4.0 International</entry>
+<entry key="lanMenTit">Paramètres de langue</entry>
 </properties>
