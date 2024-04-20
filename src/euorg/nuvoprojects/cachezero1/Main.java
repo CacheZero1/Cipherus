@@ -15,7 +15,7 @@ public class Main {
          * License: CC-BY
         */
 
-        final String version = "v0.5";
+        final String version = "v0.6";
 
 
         // Create save
