@@ -21,9 +21,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import euorg.nuvoprojects.cachezero1.LanguageHandler;
-import euorg.nuvoprojects.cachezero1.SaveHandler;
+import euorg.nuvoprojects.cachezero1.Utility;
 import euorg.nuvoprojects.cachezero1.ciphers.cryptor.Cryptor;
+import euorg.nuvoprojects.cachezero1.literates.LanguageHandler;
+import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 
 public class CryptorPanel extends JPanel implements ActionListener {
 
@@ -74,7 +75,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
         try {
             createFunctionalComponents();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.graErr), langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.minErr), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMapLang()).get(Utility.graErr), langHandler.getLangMap(handler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
         }
         applyTexts();
         applyFonts();
@@ -176,19 +177,19 @@ public class CryptorPanel extends JPanel implements ActionListener {
     // Set texts
     public void applyTexts() {
 
-        HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName));
+        HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
 
         // Labels
-        formulaLabel.setText(textMap.get(languageHandler.cryPanFor));
-        normalTextLabel.setText(textMap.get(languageHandler.cryPanNorTex));
-        cipheredTextLabel.setText(textMap.get(languageHandler.cryPanEncTex));
+        formulaLabel.setText(textMap.get(Utility.cryPanFor));
+        normalTextLabel.setText(textMap.get(Utility.cryPanNorTex));
+        cipheredTextLabel.setText(textMap.get(Utility.cryPanEncTex));
 
         // Button
-        startButton.setText(textMap.get(languageHandler.cryPanSta));
+        startButton.setText(textMap.get(Utility.cryPanSta));
 
         // RadioButton
-        encryptRadioButton.setText(textMap.get(languageHandler.cryPanEnc));
-        decryptRadioButton.setText(textMap.get(languageHandler.cryPanDec));
+        encryptRadioButton.setText(textMap.get(Utility.cryPanEnc));
+        decryptRadioButton.setText(textMap.get(Utility.cryPanDec));
 
     }
 
@@ -196,19 +197,19 @@ public class CryptorPanel extends JPanel implements ActionListener {
     public void applyFonts() {
 
         // Title
-        encryptRadioButton.setFont(saveHandler.getFontMap().get(saveHandler.titleFontName));
-        decryptRadioButton.setFont(saveHandler.getFontMap().get(saveHandler.titleFontName));
-        startButton.setFont(saveHandler.getFontMap().get(saveHandler.titleFontName));
+        encryptRadioButton.setFont(saveHandler.getFontMap().get(Utility.titleFontName));
+        decryptRadioButton.setFont(saveHandler.getFontMap().get(Utility.titleFontName));
+        startButton.setFont(saveHandler.getFontMap().get(Utility.titleFontName));
 
         // Subtitle
-        formulaLabel.setFont(saveHandler.getFontMap().get(saveHandler.subtitleFontName));
-        normalTextLabel.setFont(saveHandler.getFontMap().get(saveHandler.subtitleFontName));
-        cipheredTextLabel.setFont(saveHandler.getFontMap().get(saveHandler.subtitleFontName));
+        formulaLabel.setFont(saveHandler.getFontMap().get(Utility.subtitleFontName));
+        normalTextLabel.setFont(saveHandler.getFontMap().get(Utility.subtitleFontName));
+        cipheredTextLabel.setFont(saveHandler.getFontMap().get(Utility.subtitleFontName));
 
         // Input
-        formulaField.setFont(saveHandler.getFontMap().get(saveHandler.inputFontName));
-        normalTextArea.setFont(saveHandler.getFontMap().get(saveHandler.inputFontName));
-        cipheredTextArea.setFont(saveHandler.getFontMap().get(saveHandler.inputFontName));
+        formulaField.setFont(saveHandler.getFontMap().get(Utility.inputFontName));
+        normalTextArea.setFont(saveHandler.getFontMap().get(Utility.inputFontName));
+        cipheredTextArea.setFont(saveHandler.getFontMap().get(Utility.inputFontName));
 
     }
 
@@ -259,8 +260,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
             preciseTL.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2, true));
             preciseTR.setBorder(null);
 
-            normalTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanNorTex));
-            cipheredTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanEncTex));
+            normalTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.cryPanNorTex));
+            cipheredTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.cryPanEncTex));
 
         }
 
@@ -270,8 +271,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
             preciseTL.setBorder(null);
             preciseTR.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2, true));
 
-            normalTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanEncTex));
-            cipheredTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.cryPanNorTex));
+            normalTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.cryPanEncTex));
+            cipheredTextLabel.setText(languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.cryPanNorTex));
 
         }
 
@@ -290,7 +291,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     
                 } catch (Exception encryptionError) {
                     encryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.calErr), languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.minErr), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.calErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
                 }
                 
             // Decrypt
@@ -305,7 +306,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
                 } catch (Exception decryptionError) {
                     decryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.calErr), languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName)).get(languageHandler.minErr), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.calErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
                 }
 
             }

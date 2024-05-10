@@ -1,6 +1,8 @@
 package euorg.nuvoprojects.cachezero1;
 
 import euorg.nuvoprojects.cachezero1.gui.MainWindow;
+import euorg.nuvoprojects.cachezero1.literates.LanguageHandler;
+import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 
 public class Main {
 
@@ -15,7 +17,7 @@ public class Main {
          * License: CC-BY
         */
 
-        final String version = "v0.6";
+        final String version = "v0.7";
 
 
         // Create save
@@ -23,7 +25,7 @@ public class Main {
 
         // Main window
         MainWindow mainWindow = new MainWindow(version, handler, langHandler);
-        mainWindow.setVisible(true);
+        mainWindow.setVisible(true);       
 
     }    
 

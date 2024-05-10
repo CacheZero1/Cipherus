@@ -12,13 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import euorg.nuvoprojects.cachezero1.LanguageHandler;
-import euorg.nuvoprojects.cachezero1.SaveHandler;
+import euorg.nuvoprojects.cachezero1.Utility;
+import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 
 public class LanguageMenu extends JOptionPane {
-
-    // Getters
-    private final String lanMenTit = "lanMenTit";
 
     // Main panel
     private JPanel mainPanel = new JPanel();
@@ -30,10 +27,10 @@ public class LanguageMenu extends JOptionPane {
 
     ButtonGroup buttonGroup = new ButtonGroup();
 
-    public LanguageMenu(Component parent, SaveHandler saveHandler, LanguageHandler langHandler) {
+    public LanguageMenu(Component parent, SaveHandler saveHandler, String title) {
 
         // Lang
-        final String language = saveHandler.getDataMap().get(saveHandler.langName);
+        final String language = saveHandler.getDataMapLang();
 
         // Setup Panel
         setupPanel(language);
@@ -42,7 +39,7 @@ public class LanguageMenu extends JOptionPane {
         int chosenOption = LanguageMenu.showConfirmDialog(
             parent, 
             mainPanel, 
-            langHandler.getLangMap(language).get(lanMenTit), 
+            title, 
             JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.PLAIN_MESSAGE
         );
@@ -52,14 +49,14 @@ public class LanguageMenu extends JOptionPane {
 
             HashMap<String, String> newLangMap = new HashMap<String, String>();
 
-            newLangMap.put(saveHandler.modeName, saveHandler.getDataMap().get(saveHandler.modeName));
+            newLangMap.put(Utility.modeName, saveHandler.getDataMap().get(Utility.modeName));
 
             if (frenchRadioButton.isSelected()) {
-                newLangMap.put(saveHandler.langName, "fr");
+                newLangMap.put(Utility.langName, "fr");
             } else if (germanRadioButton.isSelected()) {
-                newLangMap.put(saveHandler.langName, "de");
+                newLangMap.put(Utility.langName, "de");
             } else {
-                newLangMap.put(saveHandler.langName, "en");
+                newLangMap.put(Utility.langName, "en");
             }
             
             saveHandler.applyChanges(saveHandler.getFontMap(), newLangMap);
@@ -96,11 +93,11 @@ public class LanguageMenu extends JOptionPane {
                 break;
         }
 
+        // Adding
         buttonGroup.add(englishRadioButton);
         buttonGroup.add(frenchRadioButton);
         buttonGroup.add(germanRadioButton);
 
-        // Adding
         mainPanel.add(englishRadioButton, BorderLayout.WEST);
         mainPanel.add(frenchRadioButton, BorderLayout.CENTER);
         mainPanel.add(germanRadioButton, BorderLayout.EAST);

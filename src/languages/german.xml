@@ -41,9 +41,11 @@
 <entry key="fonMenInp">Eingabe</entry>
 <entry key="fonMenFonSet">Schrifteinstellungen</entry>
 <entry key="aboMenTit">Über Cipherus</entry>
-<entry key="aboMenOk">Ok</entry>
 <entry key="aboMenDes1">Ver- und entschlüsseln sie Nachrichten, sei es im Textformat oder im Bildformat.</entry>
 <entry key="aboMenDes2">Alles in einer Benutzeroberfläche, programmiert um (hoffentlich) zu beeindrucken.</entry>
 <entry key="aboMenDes3">Cipherus © 2024 von CacheZero1 ist lizensiert unter Attribution 4.0 International</entry>
 <entry key="lanMenTit">Spracheinstellungen</entry>
+<entry key="accept">Ok</entry>
+<entry key="close">Schließen</entry>
+<entry key="help">Hilfe</entry>
 </properties>

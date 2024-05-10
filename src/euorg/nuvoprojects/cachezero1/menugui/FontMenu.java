@@ -8,6 +8,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -20,25 +21,13 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import euorg.nuvoprojects.cachezero1.SaveHandler;
+import euorg.nuvoprojects.cachezero1.Utility;
+import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 
 public class FontMenu extends JOptionPane implements ActionListener, ChangeListener {
 
-    // Lang Strings
-    private final String plainStyleGet = "fonMenStyPla";
-    private final String boldStyleGet = "fonMenStyBol";
-    private final String italicStyleGet = "fonMenStyIta";
-    private final String familyGet = "fonMenFam";
-    private final String styleGet = "fonMenSty";
-    private final String sizeGet = "fonMenSiz";
-    private final String titleGet = "fonMenTit";
-    private final String subtitleGet = "fonMenSub";
-    private final String selectionGet = "fonMenSel";
-    private final String inputGet = "fonMenInp";
-    private final String fontSettingsGet = "fonMenFonSet";
-
     // Globals
-    private static HashMap<String, String> langMap;
+    ArrayList<String> stringMap;
     private Font globalFont = new Font(null, Font.PLAIN, 20);
     String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     String[] styles;
@@ -107,18 +96,18 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     // ------- </Functional components> -------
 
     // Start
-    public FontMenu(Component parent, SaveHandler saveHandler, HashMap<String, String> textMap) {
+    public FontMenu(Component parent, SaveHandler saveHandler, ArrayList<Font> fontList, ArrayList<String> stringList) {
 
-        langMap = textMap;
+        stringMap = stringList;
 
         // Set text
         applyTexts();
 
         // Set fonts
-        titleFont = saveHandler.getFontMap().get(saveHandler.titleFontName);
-        subtitleFont = saveHandler.getFontMap().get(saveHandler.subtitleFontName);
-        selectionFont = saveHandler.getFontMap().get(saveHandler.selectionFontName);
-        inputFont = saveHandler.getFontMap().get(saveHandler.inputFontName);
+        titleFont = fontList.get(0);
+        subtitleFont = fontList.get(1);
+        selectionFont = fontList.get(2);
+        inputFont = fontList.get(3);
 
         // Create panel
         createPositioning();
@@ -129,7 +118,7 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         int chosenOption = FontMenu.showConfirmDialog(
             parent, 
             mainPanel, 
-            langMap.get(fontSettingsGet), 
+            stringList.get(0), 
             JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.PLAIN_MESSAGE
         );
@@ -139,10 +128,10 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
             HashMap<String, Font> newFontMap = new HashMap<String, Font>();
 
-            newFontMap.put(saveHandler.titleFontName, new Font((String) titleFamilyBox.getSelectedItem(), determineStyle((String) titleStyleBox.getSelectedItem()), titleSizeSlider.getValue()));
-            newFontMap.put(saveHandler.subtitleFontName, new Font((String) subtitleFamilyBox.getSelectedItem(), determineStyle((String) subtitleStyleBox.getSelectedItem()), subtitleSizeSlider.getValue()));
-            newFontMap.put(saveHandler.selectionFontName, new Font((String) selectionFamilyBox.getSelectedItem(), determineStyle((String) selectionStyleBox.getSelectedItem()), selectionSizeSlider.getValue()));
-            newFontMap.put(saveHandler.inputFontName, new Font((String) inputFamilyBox.getSelectedItem(), determineStyle((String) inputStyleBox.getSelectedItem()), inputSizeSlider.getValue()));
+            newFontMap.put(Utility.titleFontName, new Font((String) titleFamilyBox.getSelectedItem(), determineStyle((String) titleStyleBox.getSelectedItem()), titleSizeSlider.getValue()));
+            newFontMap.put(Utility.subtitleFontName, new Font((String) subtitleFamilyBox.getSelectedItem(), determineStyle((String) subtitleStyleBox.getSelectedItem()), subtitleSizeSlider.getValue()));
+            newFontMap.put(Utility.selectionFontName, new Font((String) selectionFamilyBox.getSelectedItem(), determineStyle((String) selectionStyleBox.getSelectedItem()), selectionSizeSlider.getValue()));
+            newFontMap.put(Utility.inputFontName, new Font((String) inputFamilyBox.getSelectedItem(), determineStyle((String) inputStyleBox.getSelectedItem()), inputSizeSlider.getValue()));
 
             saveHandler.applyChanges(newFontMap, saveHandler.getDataMap());
 
@@ -304,16 +293,16 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     // Apply the language
     public void applyTexts() {
 
-        styles = new String[]{langMap.get(plainStyleGet), langMap.get(boldStyleGet), langMap.get(italicStyleGet)};
+        styles = new String[]{stringMap.get(1), stringMap.get(2), stringMap.get(3)};
 
-        familyLabel = new JLabel(langMap.get(familyGet));
-        styleLabel = new JLabel(langMap.get(styleGet));
-        sizeLabel = new JLabel(langMap.get(sizeGet));
+        familyLabel = new JLabel(stringMap.get(4));
+        styleLabel = new JLabel(stringMap.get(5));
+        sizeLabel = new JLabel(stringMap.get(6));
 
-        titleLabel = new JLabel(langMap.get(titleGet));
-        subtitleLabel = new JLabel(langMap.get(subtitleGet));
-        selectionLabel = new JLabel(langMap.get(selectionGet));
-        inputLabel = new JLabel(langMap.get(inputGet));
+        titleLabel = new JLabel(stringMap.get(7));
+        subtitleLabel = new JLabel(stringMap.get(8));
+        selectionLabel = new JLabel(stringMap.get(9));
+        inputLabel = new JLabel(stringMap.get(10));
 
         titleStyleBox = new JComboBox<String>(styles);
         subtitleStyleBox = new JComboBox<String>(styles);
@@ -325,15 +314,11 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
     private int determineStyle(String styleString) {
 
-        if (styleString.equals(langMap.get(plainStyleGet))) {
-
-            return Font.PLAIN;
-
-        } else if (styleString.equals(langMap.get(boldStyleGet))) {
+        if (styleString.equals(stringMap.get(2))) {
 
             return Font.BOLD;
 
-        } else if (styleString.equals(langMap.get(italicStyleGet))) {
+        } else if (styleString.equals(stringMap.get(3))) {
 
             return Font.ITALIC;
 
@@ -343,19 +328,15 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
     private String determineStyleName(Integer styleInt) {
 
-        if (styleInt.equals(Font.PLAIN)) {
+        if (styleInt.equals(Font.BOLD)) {
 
-            return langMap.get(plainStyleGet);
-
-        } else if (styleInt.equals(Font.BOLD)) {
-
-            return langMap.get(boldStyleGet);
+            return stringMap.get(2);
 
         } else if (styleInt.equals(Font.ITALIC)) {
 
-            return langMap.get(italicStyleGet);
+            return stringMap.get(3);
 
-        } else { return langMap.get(plainStyleGet); }
+        } else { return stringMap.get(1); }
         
     }
 

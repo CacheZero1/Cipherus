@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.awt.BorderLayout;
@@ -22,9 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import euorg.nuvoprojects.cachezero1.LanguageHandler;
-import euorg.nuvoprojects.cachezero1.SaveHandler;
+import euorg.nuvoprojects.cachezero1.Utility;
+import euorg.nuvoprojects.cachezero1.literates.LanguageHandler;
+import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 import euorg.nuvoprojects.cachezero1.menugui.AboutMenu;
+import euorg.nuvoprojects.cachezero1.menugui.EncoderHelpMenu;
 import euorg.nuvoprojects.cachezero1.menugui.FontMenu;
 import euorg.nuvoprojects.cachezero1.menugui.LanguageMenu;
 import euorg.nuvoprojects.cachezero1.menugui.SaveImageMenu;
@@ -100,7 +103,7 @@ public class MainWindow extends JFrame implements ActionListener {
         try {
             this.setIconImage(ImageIO.read(getClass().getResource("/images/icon_128px.png")));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.graErr), langHandler.getLangMap(handler.getDataMap().get(handler.langName)).get(langHandler.minErr), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMapLang()).get(Utility.graErr), langHandler.getLangMap(handler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
         }
 
         // Instances
@@ -239,30 +242,30 @@ public class MainWindow extends JFrame implements ActionListener {
     // Set texts
     private void applyTexts() {
 
-        HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName));
+        HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
 
         // Menu
-        settingsMenu.setText(textMap.get(languageHandler.menSet));
-        helpMenu.setText(textMap.get(languageHandler.menHel));
+        settingsMenu.setText(textMap.get(Utility.menSet));
+        helpMenu.setText(textMap.get(Utility.menHel));
 
-        saveTextMenuItem.setText(textMap.get(languageHandler.menSavTex));
-        saveImageMenuItem.setText(textMap.get(languageHandler.menSavIma));
-        aboutMenuItem.setText(textMap.get(languageHandler.menAbo));
-        exitMenuItem.setText(textMap.get(languageHandler.menExi));
+        saveTextMenuItem.setText(textMap.get(Utility.menSavTex));
+        saveImageMenuItem.setText(textMap.get(Utility.menSavIma));
+        aboutMenuItem.setText(textMap.get(Utility.menAbo));
+        exitMenuItem.setText(textMap.get(Utility.menExi));
         
-        fontMenuItem.setText(textMap.get(languageHandler.menFon));
-        colourMenuItem.setText(textMap.get(languageHandler.menCol));
-        languageMenuItem.setText(textMap.get(languageHandler.menLan));
+        fontMenuItem.setText(textMap.get(Utility.menFon));
+        colourMenuItem.setText(textMap.get(Utility.menCol));
+        languageMenuItem.setText(textMap.get(Utility.menLan));
 
-        encodersHelpMenuItem.setText(textMap.get(languageHandler.menCip));
-        applicationHelpMenuItem.setText(textMap.get(languageHandler.menNav));
+        encodersHelpMenuItem.setText(textMap.get(Utility.menCip));
+        applicationHelpMenuItem.setText(textMap.get(Utility.menNav));
 
     }
 
     // Apply fonts
     private void applyFont() {
 
-        Font selectionFont = saveHandler.getFontMap().get(saveHandler.selectionFontName);
+        Font selectionFont = saveHandler.getFontMap().get(Utility.selectionFontName);
 
         cryptorButton.setFont(selectionFont);
         tartarusButton.setFont(selectionFont);
@@ -297,14 +300,21 @@ public class MainWindow extends JFrame implements ActionListener {
         // Save text
         if (e.getSource() == saveTextMenuItem) {
 
-            HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName));
+            HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
 
             switch(cipherName) {
                 case tartarusName:
                     break; //TODO: add tartarus
 
                 case cryptorName:
-                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()), textMap);
+                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()), new ArrayList<String>(Arrays.asList(
+                        textMap.get(Utility.savTexSavTex),
+                        textMap.get(Utility.savTexSav),
+                        textMap.get(Utility.savTexLef),
+                        textMap.get(Utility.savTexRig),
+                        textMap.get(Utility.savFilErr),
+                        textMap.get(Utility.majErr)
+                    )));
                     break;
 
                 default:
@@ -317,18 +327,42 @@ public class MainWindow extends JFrame implements ActionListener {
             new SaveImageMenu();
         }
 
-        // About page
+        // About page => Done
         if (e.getSource() == aboutMenuItem) {
-            new AboutMenu(this, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName))); // TODO:
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new AboutMenu(this, new ArrayList<String>(Arrays.asList(
+                langMap.get(Utility.aboMenDes1), 
+                langMap.get(Utility.aboMenDes2), 
+                langMap.get(Utility.aboMenDes3), 
+                langMap.get(Utility.aboMenTit), 
+                langMap.get(Utility.accept)
+            )));
         }
 
-        // Font settings
+        // Font settings => Done
         if (e.getSource() == fontMenuItem) {
-
-            new FontMenu(this, saveHandler, languageHandler.getLangMap(saveHandler.getDataMap().get(saveHandler.langName))); // TODO:
+            HashMap<String, Font> fontMap = saveHandler.getFontMap();
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new FontMenu(this, saveHandler, new ArrayList<Font>(Arrays.asList(
+                fontMap.get(Utility.titleFontName), 
+                fontMap.get(Utility.subtitleFontName), 
+                fontMap.get(Utility.selectionFontName), 
+                fontMap.get(Utility.inputFontName)
+            )), new ArrayList<String>(Arrays.asList(
+                langMap.get(Utility.fonMenFonSet),
+                langMap.get(Utility.fonMenStyPla),
+                langMap.get(Utility.fonMenStyBol),
+                langMap.get(Utility.fonMenStyIta),
+                langMap.get(Utility.fonMenFam),
+                langMap.get(Utility.fonMenSty),
+                langMap.get(Utility.fonMenSiz),
+                langMap.get(Utility.fonMenTit),
+                langMap.get(Utility.fonMenSub),
+                langMap.get(Utility.fonMenSel),
+                langMap.get(Utility.fonMenInp)
+            )));
             applyFont();
             cryptorPanel.applyFonts();
-
         }
 
         // Colour settings
@@ -336,12 +370,21 @@ public class MainWindow extends JFrame implements ActionListener {
 
         }
 
-        // Language settings
+        // Language settings => Done
         if (e.getSource() == languageMenuItem) {
-
-            new LanguageMenu(this, saveHandler, languageHandler);
+            new LanguageMenu(this, saveHandler, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.lanMenTit));
             applyTexts();
             cryptorPanel.applyTexts();
+        }
+
+        // Encoders help menu => Done
+        if (e.getSource() == encodersHelpMenuItem) {
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new EncoderHelpMenu(this, new ArrayList<String>(Arrays.asList(
+                saveHandler.getDataMapLang(), 
+                langMap.get(Utility.help), 
+                langMap.get(Utility.close)
+            )));
 
         }
         // ------- </Menu clicks> -------

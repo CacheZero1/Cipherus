@@ -41,9 +41,11 @@
 <entry key="fonMenInp">Input</entry>
 <entry key="fonMenFonSet">Font settings</entry>
 <entry key="aboMenTit">About Cipherus</entry>
-<entry key="aboMenOk">Ok</entry>
 <entry key="aboMenDes1">Encrypt and decrypt messages, be it in Text-format, or in Image-format.</entry>
 <entry key="aboMenDes2">All within a GUI, made to (hopefully) impress.</entry>
 <entry key="aboMenDes3">Cipherus © 2024 by CacheZero1 is licensed under Attribution 4.0 International</entry>
 <entry key="lanMenTit">Language settings</entry>
+<entry key="accept">Ok</entry>
+<entry key="close">Close</entry>
+<entry key="help">Help</entry>
 </properties>

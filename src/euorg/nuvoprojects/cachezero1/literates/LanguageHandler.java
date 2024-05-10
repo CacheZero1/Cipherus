@@ -1,4 +1,4 @@
-package euorg.nuvoprojects.cachezero1;
+package euorg.nuvoprojects.cachezero1.literates;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -19,38 +19,6 @@ public class LanguageHandler {
     private String englishFile;
 
     private Properties properties;
-
-    // ------- <Getters> -------
-    // Exception messages
-    public final String graErr = "err1";
-    public final String calErr = "err2";
-    public final String wriFilErr = "err3";
-    public final String reaFilErr = "err4";
-    public final String savFilErr = "err5";
-    public final String minErr = "exc1";
-    public final String majErr = "exc2";
-
-    // Main Window
-    public final String menSet = "maiWinMenSet";
-    public final String menHel = "maiWinMenHel";
-    public final String menSavTex = "maiWinMenSavTex";
-    public final String menSavIma = "maiWinMenSavIma";
-    public final String menAbo = "maiWinMenAbo";
-    public final String menExi = "maiWinMenExi";
-    public final String menFon = "maiWinMenFon";
-    public final String menCol = "maiWinMenCol";
-    public final String menLan = "maiWinMenLan";
-    public final String menCip = "maiWinMenCip";
-    public final String menNav = "maiWinMenNav";
-
-    // Cryptor Panel
-    public final String cryPanFor = "cryPanFor";
-    public final String cryPanNorTex = "cryPanNorTex";
-    public final String cryPanEncTex = "cryPanEncTex";
-    public final String cryPanSta = "cryPanSta";
-    public final String cryPanEnc = "cryPanEnc";
-    public final String cryPanDec = "cryPanDec";
-    // ------- </Getters> -------
 
     // Initiate class
     public LanguageHandler() {
@@ -121,10 +89,6 @@ public class LanguageHandler {
         HashMap<String, String> langMap;
 
         switch (lang) {
-            case "en":
-                langMap = readXML(englishFile);
-                break;
-
             case "fr":
                 langMap = readXML(frenchFile);
                 break;
