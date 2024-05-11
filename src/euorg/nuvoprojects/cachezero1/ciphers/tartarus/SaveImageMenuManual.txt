@@ -1,0 +1,3 @@
+Creator creator = new Creator();
+BufferedImage image = creator.createImage(loremIpsum);
+ImageIO.write(image, "png", new File("loremipsum.png"));

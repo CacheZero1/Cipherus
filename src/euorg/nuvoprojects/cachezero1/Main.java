@@ -17,7 +17,7 @@ public class Main {
          * License: CC-BY
         */
 
-        final String version = "v0.7";
+        final String version = "v0.8";
 
 
         // Create save
@@ -25,7 +25,7 @@ public class Main {
 
         // Main window
         MainWindow mainWindow = new MainWindow(version, handler, langHandler);
-        mainWindow.setVisible(true);       
+        mainWindow.setVisible(true);
 
     }    
 

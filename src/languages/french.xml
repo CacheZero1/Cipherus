@@ -25,6 +25,11 @@
 <entry key="cryPanSta">Commencer</entry>
 <entry key="cryPanEnc">Encoder</entry>
 <entry key="cryPanDec">Décoder</entry>
+<entry key="tarPanRGBFor">Formule de couleur:</entry>
+<entry key="tarPanRGBRed">Rouge</entry>
+<entry key="tarPanRGBGre">Vert</entry>
+<entry key="tarPanRGBBlu">Bleu</entry>
+<entry key="tarPanImaCho">Choisissez une image</entry>
 <entry key="savTexSavTex">Enregistrer le text</entry>
 <entry key="savTexSav">Enregistrer</entry>
 <entry key="savTexLef">Text à gauche</entry>

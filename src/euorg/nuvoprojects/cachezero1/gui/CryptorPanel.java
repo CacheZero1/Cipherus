@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -59,10 +57,6 @@ public class CryptorPanel extends JPanel implements ActionListener {
     private JRadioButton decryptRadioButton;
     private ButtonGroup radioButtonOptionGroup;
 
-    // File path seperator
-    String filePathSep = FileSystems.getDefault().getSeparator();
-
-
     public CryptorPanel(SaveHandler handler, LanguageHandler langHandler) {
 
         // Settings
@@ -74,7 +68,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
         createPositioningComponents();
         try {
             createFunctionalComponents();
-        } catch (IOException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMapLang()).get(Utility.graErr), langHandler.getLangMap(handler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
         }
         applyTexts();
@@ -127,7 +121,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
     }
 
     // Functionals
-    private void createFunctionalComponents() throws IOException {
+    private void createFunctionalComponents() {
 
         // JLabels
         formulaLabel = new JLabel();

@@ -25,6 +25,11 @@
 <entry key="cryPanSta">Start</entry>
 <entry key="cryPanEnc">Encrypt</entry>
 <entry key="cryPanDec">Decrypt</entry>
+<entry key="tarPanRGBFor">Colour formula:</entry>
+<entry key="tarPanRGBRed">Red</entry>
+<entry key="tarPanRGBGre">Green</entry>
+<entry key="tarPanRGBBlu">Blue</entry>
+<entry key="tarPanImaCho">Choose an image</entry>
 <entry key="savTexSavTex">Save Text</entry>
 <entry key="savTexSav">Save</entry>
 <entry key="savTexLef">Text left</entry>

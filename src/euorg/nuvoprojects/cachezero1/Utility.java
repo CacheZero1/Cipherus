@@ -66,6 +66,13 @@ public class Utility {
     public static final String cryPanEnc = "cryPanEnc";
     public static final String cryPanDec = "cryPanDec";
 
+    // Tartarus Panel
+    public static final String tarPanRGBFor = "tarPanRGBFor";
+    public static final String tarPanRGBRed = "tarPanRGBRed";
+    public static final String tarPanRGBGreen = "tarPanRGBGre";
+    public static final String tarPanRGBBlue = "tarPanRGBBlu";
+    public static final String tarPanChooseImage = "tarPanImaCho";
+
     // Save Text Menu
     public static final String savTexSavTex = "savTexSavTex";
     public static final String savTexSav = "savTexSav";
@@ -93,5 +100,10 @@ public class Utility {
     public static final String close = "close";
     public static final String help = "help";
     // ------- </Getters> -------
+
+    // ------- <Uniques> -------
+    public static final String red = "r";
+    public static final String green = "g";
+    public static final String blue = "b";
 
 }

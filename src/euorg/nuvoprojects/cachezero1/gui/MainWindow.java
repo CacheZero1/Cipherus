@@ -108,7 +108,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Instances
         cryptorPanel = new CryptorPanel(handler, langHandler);
-        tartarusPanel = new TartarusPanel();
+        tartarusPanel = new TartarusPanel(handler, langHandler);
 
         // Populate GUI
         createJMenu();
@@ -281,7 +281,8 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getSource() == cryptorButton) {
             centerPanel.remove(centerPanel.getComponent(0));
             centerPanel.add(cryptorPanel, BorderLayout.CENTER);
-            this.repaint();
+            centerPanel.revalidate();
+            centerPanel.repaint();
 
             cipherName = cryptorName;
         }
@@ -290,7 +291,8 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getSource() == tartarusButton) {
             centerPanel.remove(centerPanel.getComponent(0));
             centerPanel.add(tartarusPanel, BorderLayout.CENTER);
-            this.repaint();
+            centerPanel.revalidate();
+            centerPanel.repaint();
 
             cipherName = tartarusName;
         }
@@ -304,7 +306,15 @@ public class MainWindow extends JFrame implements ActionListener {
 
             switch(cipherName) {
                 case tartarusName:
-                    break; //TODO: add tartarus
+                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(tartarusPanel.inOutTextArea.getText()), new ArrayList<String>(Arrays.asList(
+                        textMap.get(Utility.savTexSavTex),
+                        textMap.get(Utility.savTexSav),
+                        textMap.get(Utility.savTexLef),
+                        textMap.get(Utility.savTexRig),
+                        textMap.get(Utility.savFilErr),
+                        textMap.get(Utility.majErr)
+                    )));
+                    break;
 
                 case cryptorName:
                     saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()), new ArrayList<String>(Arrays.asList(
@@ -363,6 +373,7 @@ public class MainWindow extends JFrame implements ActionListener {
             )));
             applyFont();
             cryptorPanel.applyFonts();
+            tartarusPanel.applyFonts();
         }
 
         // Colour settings
@@ -375,6 +386,7 @@ public class MainWindow extends JFrame implements ActionListener {
             new LanguageMenu(this, saveHandler, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.lanMenTit));
             applyTexts();
             cryptorPanel.applyTexts();
+            tartarusPanel.applyTexts();
         }
 
         // Encoders help menu => Done
