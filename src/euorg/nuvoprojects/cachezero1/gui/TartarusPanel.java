@@ -31,7 +31,7 @@ import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 public class TartarusPanel extends JPanel implements ActionListener {
 
     // Globals
-    static BufferedImage image = new BufferedImage(256, 144, BufferedImage.TYPE_INT_RGB);
+    public BufferedImage image = new BufferedImage(256, 144, BufferedImage.TYPE_INT_RGB);
 
     // Settings
     private static SaveHandler saveHandler;

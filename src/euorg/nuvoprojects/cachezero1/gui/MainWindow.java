@@ -334,7 +334,13 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Save image
         if (e.getSource() == saveImageMenuItem) {
-            new SaveImageMenu();
+            HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new SaveImageMenu(this, tartarusPanel.image, new ArrayList<String>(Arrays.asList(
+                textMap.get(Utility.savImgSavImg),
+                textMap.get(Utility.savTexSav),
+                textMap.get(Utility.savFilErr),
+                textMap.get(Utility.majErr)
+            )));
         }
 
         // About page => Done

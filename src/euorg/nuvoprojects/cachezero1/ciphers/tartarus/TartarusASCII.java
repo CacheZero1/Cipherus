@@ -37,11 +37,7 @@ public class TartarusASCII {
             asciiHashMap.put(alphabet[start - 65], start);
             letterMap.put(start, alphabet[start - 65]);
 
-        }
-
-        System.out.println(asciiHashMap);
-        System.out.println(letterMap);
-        
+        }        
 
     }
     
