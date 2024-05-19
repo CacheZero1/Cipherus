@@ -1,5 +1,6 @@
 package euorg.nuvoprojects.cachezero1;
 
+import java.awt.Color;
 
 public class Utility {
 
@@ -108,5 +109,22 @@ public class Utility {
     public static final String red = "r";
     public static final String green = "g";
     public static final String blue = "b";
+
+    public static final String lightMode = "light";
+    public static final String darkMode = "dark";
+    // ------- </Uniques> -------
+
+    // ------- <Colours> -------
+    public static final Color backgroundDark = new Color(34, 37, 38);           // General background
+    public static final Color optionBackgroundDark = new Color(45, 47, 49);     // JOptionPane background
+    public static final Color titlebarDark = new Color(60, 61, 61);             // Menubar & Titlebar
+    public static final Color comboboxDark = new Color(98, 99, 101);            // ComboBoxes
+    public static final Color buttonDark = new Color(75, 75, 75);               // Buttons
+    public static final Color sliderKnobDark = new Color(150, 151, 152);        // Slider knobs
+    public static final Color sliderTickDark = new Color(87, 89, 90);           // Slider ticks
+    public static final Color sliderBarDark = new Color(66, 68, 70);            // Slider bar
+
+    public static final Color textColourDarkmode = new Color(240, 248, 255);
+    // ------- </Colours> -------
 
 }

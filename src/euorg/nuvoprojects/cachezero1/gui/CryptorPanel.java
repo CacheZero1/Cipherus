@@ -16,8 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import euorg.nuvoprojects.cachezero1.Utility;
 import euorg.nuvoprojects.cachezero1.ciphers.cryptor.Cryptor;
@@ -53,11 +55,14 @@ public class CryptorPanel extends JPanel implements ActionListener {
     JTextArea cipheredTextArea;
     private JButton startButton;
 
+    private JScrollPane normalScrollPane;
+    private JScrollPane cipheredScrollPane;
+
     private JRadioButton encryptRadioButton;
     private JRadioButton decryptRadioButton;
     private ButtonGroup radioButtonOptionGroup;
 
-    public CryptorPanel(SaveHandler handler, LanguageHandler langHandler) {
+    public CryptorPanel(SaveHandler handler, LanguageHandler langHandler, Boolean isDarkmode) {
 
         // Settings
         this.setLayout(new BorderLayout());
@@ -73,6 +78,7 @@ public class CryptorPanel extends JPanel implements ActionListener {
         }
         applyTexts();
         applyFonts();
+        applyTheme(isDarkmode);
         addGUIComponents();
 
     }
@@ -144,7 +150,14 @@ public class CryptorPanel extends JPanel implements ActionListener {
         cipheredTextArea = new JTextArea();
         cipheredTextArea.setLineWrap(true);
 
+        normalScrollPane = new JScrollPane(normalTextArea);
+        normalScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        cipheredScrollPane = new JScrollPane(cipheredTextArea);
+        cipheredScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         startButton = new JButton();
+        startButton.setFocusable(false);
         startButton.setHorizontalAlignment(JButton.CENTER);
         startButton.addActionListener(this);
 
@@ -165,6 +178,122 @@ public class CryptorPanel extends JPanel implements ActionListener {
         radioButtonOptionGroup = new ButtonGroup();
         radioButtonOptionGroup.add(encryptRadioButton);
         radioButtonOptionGroup.add(decryptRadioButton);
+
+    }
+
+    // Dark mode
+    private void applyTheme(Boolean isDarkMode) {
+
+        if (isDarkMode) {
+            // ------- <Set backgrounds> -------
+            // Panels
+            topPanel.setBackground(Utility.backgroundDark);
+            centerPanel.setBackground(Utility.backgroundDark);
+            bottomPanel.setBackground(Utility.backgroundDark);
+
+            preciseTL.setBackground(Utility.backgroundDark);
+            preciseTR.setBackground(Utility.backgroundDark);
+            preciseBL.setBackground(Utility.backgroundDark);
+            preicseBR.setBackground(Utility.backgroundDark);
+
+            leftCenterPanel.setBackground(Utility.backgroundDark);
+            rightCenterPanel.setBackground(Utility.backgroundDark);
+
+            // Text fields & areas
+            formulaField.setBackground(Utility.optionBackgroundDark);
+            formulaField.setBorder(null);
+            formulaField.setCaretColor(Utility.textColourDarkmode);
+
+            normalTextArea.setBackground(Utility.optionBackgroundDark);
+            normalTextArea.setCaretColor(Utility.textColourDarkmode);
+            normalTextArea.setBorder(null);
+            normalScrollPane.setBorder(null);
+            normalScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                @Override 
+                protected void configureScrollBarColors(){
+                    this.thumbColor = Utility.sliderKnobDark;
+                    this.trackColor = Utility.sliderBarDark;
+                }
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton button = super.createDecreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton button = super.createIncreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+            });
+            normalScrollPane.getVerticalScrollBar().getComponent(0).getParent().setBackground(Utility.backgroundDark); // Down button
+            normalScrollPane.getVerticalScrollBar().getComponent(1).getParent().setBackground(Utility.backgroundDark); // Up button
+            
+
+            cipheredTextArea.setBackground(Utility.optionBackgroundDark);
+            cipheredTextArea.setCaretColor(Utility.textColourDarkmode);
+            cipheredTextArea.setBorder(null);
+            cipheredScrollPane.setBorder(null);
+            cipheredScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                @Override 
+                protected void configureScrollBarColors(){
+                    this.thumbColor = Utility.sliderKnobDark;
+                    this.trackColor = Utility.sliderBarDark;
+                }
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton button = super.createDecreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton button = super.createIncreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+            });
+            cipheredScrollPane.getVerticalScrollBar().getComponent(0).getParent().setBackground(Utility.backgroundDark);
+            cipheredScrollPane.getVerticalScrollBar().getComponent(1).getParent().setBackground(Utility.backgroundDark);
+
+            // Buttons
+            startButton.setBackground(Utility.buttonDark);
+            startButton.setOpaque(true);
+            encryptRadioButton.setBackground(Utility.buttonDark);
+            decryptRadioButton.setBackground(Utility.buttonDark);
+            // ------- </Set backgrounds> -------
+
+            // ------- <Set text colour> -------
+            // Labels
+            formulaLabel.setForeground(Utility.textColourDarkmode);
+            normalTextLabel.setForeground(Utility.textColourDarkmode);
+            cipheredTextLabel.setForeground(Utility.textColourDarkmode);
+
+            // Text fields & areas
+            formulaField.setForeground(Utility.textColourDarkmode);
+            normalTextArea.setForeground(Utility.textColourDarkmode);
+            cipheredTextArea.setForeground(Utility.textColourDarkmode);
+
+            // Buttons
+            startButton.setForeground(Utility.textColourDarkmode);
+            startButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            encryptRadioButton.setForeground(Utility.textColourDarkmode);
+            encryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/encrypt_w.png")));
+
+            decryptRadioButton.setForeground(Utility.textColourDarkmode);
+            decryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/decrypt_w.png")));
+            // ------- </Set text colour> -------
+        }
 
     }
 
@@ -224,10 +353,10 @@ public class CryptorPanel extends JPanel implements ActionListener {
 
         // Center
         leftCenterPanel.add(normalTextLabel, BorderLayout.NORTH);
-        leftCenterPanel.add(normalTextArea, BorderLayout.CENTER);
+        leftCenterPanel.add(normalScrollPane, BorderLayout.CENTER);
 
         rightCenterPanel.add(cipheredTextLabel, BorderLayout.NORTH);
-        rightCenterPanel.add(cipheredTextArea, BorderLayout.CENTER);
+        rightCenterPanel.add(cipheredScrollPane, BorderLayout.CENTER);
 
         centerPanel.add(leftCenterPanel);
         centerPanel.add(rightCenterPanel);

@@ -106,7 +106,7 @@ public class SaveHandler {
 
         // Language and brightness mode
         infoMap.put(Utility.langName, getLanguage());
-        infoMap.put(Utility.modeName, "False");
+        infoMap.put(Utility.modeName, Utility.lightMode);
 
         // ------- <Font> -------
         // Title
@@ -135,7 +135,7 @@ public class SaveHandler {
 
         // ------- <Mappers> -------
         // Data
-        dataMap.put(Utility.modeName, "False");
+        dataMap.put(Utility.modeName, Utility.lightMode);
         dataMap.put(Utility.langName, infoMap.get(Utility.modeName));
 
         // Font

@@ -1,6 +1,5 @@
 package euorg.nuvoprojects.cachezero1.menugui;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -98,9 +97,9 @@ public class LanguageMenu extends JOptionPane {
         buttonGroup.add(frenchRadioButton);
         buttonGroup.add(germanRadioButton);
 
-        mainPanel.add(englishRadioButton, BorderLayout.WEST);
-        mainPanel.add(frenchRadioButton, BorderLayout.CENTER);
-        mainPanel.add(germanRadioButton, BorderLayout.EAST);
+        mainPanel.add(englishRadioButton);
+        mainPanel.add(frenchRadioButton);
+        mainPanel.add(germanRadioButton);
 
     }
     

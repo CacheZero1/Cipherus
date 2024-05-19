@@ -6,13 +6,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -22,11 +23,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import euorg.nuvoprojects.cachezero1.Utility;
 import euorg.nuvoprojects.cachezero1.literates.LanguageHandler;
 import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 import euorg.nuvoprojects.cachezero1.menugui.AboutMenu;
+import euorg.nuvoprojects.cachezero1.menugui.ColourMenu;
 import euorg.nuvoprojects.cachezero1.menugui.EncoderHelpMenu;
 import euorg.nuvoprojects.cachezero1.menugui.FontMenu;
 import euorg.nuvoprojects.cachezero1.menugui.LanguageMenu;
@@ -42,6 +46,8 @@ public class MainWindow extends JFrame implements ActionListener {
     private String cipherName;
     private final String cryptorName = "cryptor";
     private final String tartarusName = "tartarus";
+
+    private static Boolean isDarkMode;
 
     // Components (JMenu)
     private JMenuBar menuBar;
@@ -79,16 +85,15 @@ public class MainWindow extends JFrame implements ActionListener {
     // Instances (Menus)
     SaveTextMenu saveTextMenu;
     SaveImageMenu saveImageMenu;
-
-    // File path seperator
-    String filePathSep = FileSystems.getDefault().getSeparator();
     
 
-    public MainWindow(String version, SaveHandler handler, LanguageHandler langHandler) {
+    public MainWindow(String version, SaveHandler handler, LanguageHandler langHandler, Boolean darkMode) {
 
         // Globals
         saveHandler = handler;
         languageHandler = langHandler;
+
+        isDarkMode = darkMode;
 
         // Normal settings
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,13 +112,14 @@ public class MainWindow extends JFrame implements ActionListener {
         }
 
         // Instances
-        cryptorPanel = new CryptorPanel(handler, langHandler);
-        tartarusPanel = new TartarusPanel(handler, langHandler);
+        cryptorPanel = new CryptorPanel(handler, langHandler, darkMode);
+        tartarusPanel = new TartarusPanel(handler, langHandler, darkMode);
 
         // Populate GUI
         createJMenu();
         createPositioningComponents();
         createFunctionalComponents();
+        applyTheme();
         addGUIComponents();
         applyTexts();
         applyFont();
@@ -160,26 +166,6 @@ public class MainWindow extends JFrame implements ActionListener {
         encodersHelpMenuItem.addActionListener(this);
         applicationHelpMenuItem.addActionListener(this);
 
-
-        // Addition & visibility
-        cipherusMenu.add(saveTextMenuItem);
-        cipherusMenu.add(saveImageMenuItem);
-        cipherusMenu.add(aboutMenuItem);
-        cipherusMenu.add(exitMenuItem);
-
-        settingsMenu.add(fontMenuItem);
-        settingsMenu.add(colourMenuItem);
-        settingsMenu.add(languageMenuItem);
-
-        helpMenu.add(encodersHelpMenuItem);
-        helpMenu.add(applicationHelpMenuItem);
-
-        menuBar.add(cipherusMenu);
-        menuBar.add(settingsMenu);
-        menuBar.add(helpMenu);
-
-        this.setJMenuBar(menuBar);
-
     }
 
     // Create positioners
@@ -224,6 +210,25 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // Add all to JFrame
     private void addGUIComponents() {
+
+        // JMenu
+        cipherusMenu.add(saveTextMenuItem);
+        cipherusMenu.add(saveImageMenuItem);
+        cipherusMenu.add(aboutMenuItem);
+        cipherusMenu.add(exitMenuItem);
+
+        settingsMenu.add(fontMenuItem);
+        settingsMenu.add(colourMenuItem);
+        settingsMenu.add(languageMenuItem);
+
+        helpMenu.add(encodersHelpMenuItem);
+        helpMenu.add(applicationHelpMenuItem);
+
+        menuBar.add(cipherusMenu);
+        menuBar.add(settingsMenu);
+        menuBar.add(helpMenu);
+
+        this.setJMenuBar(menuBar);
 
         // Activators
         leftPanel.add(cryptorButton, gbc);
@@ -272,6 +277,97 @@ public class MainWindow extends JFrame implements ActionListener {
 
     }
 
+    // Set theme
+    private void applyTheme() {
+
+        if (isDarkMode) {
+            // ------- <Set backgrounds> -------
+            // Menubar
+            menuBar.setBackground(Utility.titlebarDark);
+
+            cipherusMenu.getPopupMenu().setBorder(new LineBorder(Utility.backgroundDark));
+            settingsMenu.getPopupMenu().setBorder(new LineBorder(Utility.backgroundDark));
+            helpMenu.getPopupMenu().setBorder(new LineBorder(Utility.backgroundDark));
+
+            saveTextMenuItem.setBackground(Utility.titlebarDark);
+            saveImageMenuItem.setBackground(Utility.titlebarDark);
+            aboutMenuItem.setBackground(Utility.titlebarDark);
+            exitMenuItem.setBackground(Utility.titlebarDark);
+
+            fontMenuItem.setBackground(Utility.titlebarDark);
+            colourMenuItem.setBackground(Utility.titlebarDark);
+            languageMenuItem.setBackground(Utility.titlebarDark);
+
+            encodersHelpMenuItem.setBackground(Utility.titlebarDark);
+            applicationHelpMenuItem.setBackground(Utility.titlebarDark);
+            
+            // General & Panels
+            this.getRootPane().setBackground(Utility.backgroundDark);
+            leftScrollPane.setBorder(null);
+            leftScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                @Override 
+                protected void configureScrollBarColors(){
+                    this.thumbColor = Utility.sliderKnobDark;
+                    this.trackColor = Utility.sliderBarDark;
+                }
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton button = super.createDecreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton button = super.createIncreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+            });
+            leftScrollPane.getVerticalScrollBar().getComponent(0).getParent().setBackground(Utility.buttonDark); // Down button
+            leftScrollPane.getVerticalScrollBar().getComponent(1).getParent().setBackground(Utility.buttonDark); // Up button
+            leftPanel.setBackground(Utility.backgroundDark);
+            rightPanel.setBackground(Utility.backgroundDark);
+            centerPanel.setBackground(Utility.backgroundDark);
+
+            // Buttons
+            cryptorButton.setBackground(Utility.buttonDark);
+            cryptorButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            tartarusButton.setBackground(Utility.buttonDark);
+            tartarusButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            // ------- </Set backgrounds> -------
+
+            // ------- <Set text colour> -------
+            // Menu & MenuItems
+            menuBar.setForeground(Utility.textColourDarkmode);
+
+            cipherusMenu.setForeground(Utility.textColourDarkmode);
+            settingsMenu.setForeground(Utility.textColourDarkmode);
+            helpMenu.setForeground(Utility.textColourDarkmode);
+
+            saveTextMenuItem.setForeground(Utility.textColourDarkmode);
+            saveImageMenuItem.setForeground(Utility.textColourDarkmode);
+            aboutMenuItem.setForeground(Utility.textColourDarkmode);
+            exitMenuItem.setForeground(Utility.textColourDarkmode);
+
+            fontMenuItem.setForeground(Utility.textColourDarkmode);
+            colourMenuItem.setForeground(Utility.textColourDarkmode);
+            languageMenuItem.setForeground(Utility.textColourDarkmode);
+
+            encodersHelpMenuItem.setForeground(Utility.textColourDarkmode);
+            applicationHelpMenuItem.setForeground(Utility.textColourDarkmode);
+
+            // Buttons
+            tartarusButton.setForeground(Utility.textColourDarkmode);
+            cryptorButton.setForeground(Utility.textColourDarkmode);
+            // ------- </Set text colour> -------
+        }
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -306,24 +402,26 @@ public class MainWindow extends JFrame implements ActionListener {
 
             switch(cipherName) {
                 case tartarusName:
-                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(tartarusPanel.inOutTextArea.getText()), new ArrayList<String>(Arrays.asList(
+                    saveTextMenu = new SaveTextMenu(this, isDarkMode, Arrays.asList(tartarusPanel.inOutTextArea.getText()), new ArrayList<String>(Arrays.asList(
                         textMap.get(Utility.savTexSavTex),
                         textMap.get(Utility.savTexSav),
                         textMap.get(Utility.savTexLef),
                         textMap.get(Utility.savTexRig),
                         textMap.get(Utility.savFilErr),
-                        textMap.get(Utility.majErr)
+                        textMap.get(Utility.majErr),
+                        textMap.get(Utility.close)
                     )));
                     break;
 
                 case cryptorName:
-                    saveTextMenu = new SaveTextMenu(this, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()), new ArrayList<String>(Arrays.asList(
+                    saveTextMenu = new SaveTextMenu(this, isDarkMode, Arrays.asList(cryptorPanel.normalTextArea.getText(), cryptorPanel.cipheredTextArea.getText()), new ArrayList<String>(Arrays.asList(
                         textMap.get(Utility.savTexSavTex),
                         textMap.get(Utility.savTexSav),
                         textMap.get(Utility.savTexLef),
                         textMap.get(Utility.savTexRig),
                         textMap.get(Utility.savFilErr),
-                        textMap.get(Utility.majErr)
+                        textMap.get(Utility.majErr),
+                        textMap.get(Utility.close)
                     )));
                     break;
 
@@ -335,27 +433,28 @@ public class MainWindow extends JFrame implements ActionListener {
         // Save image
         if (e.getSource() == saveImageMenuItem) {
             HashMap<String, String> textMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
-            new SaveImageMenu(this, tartarusPanel.image, new ArrayList<String>(Arrays.asList(
+            new SaveImageMenu(this, isDarkMode, tartarusPanel.image, new ArrayList<String>(Arrays.asList(
                 textMap.get(Utility.savImgSavImg),
                 textMap.get(Utility.savTexSav),
                 textMap.get(Utility.savFilErr),
-                textMap.get(Utility.majErr)
+                textMap.get(Utility.majErr),
+                textMap.get(Utility.close)
             )));
         }
 
-        // About page => Done
+        // About page
         if (e.getSource() == aboutMenuItem) {
             HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
-            new AboutMenu(this, new ArrayList<String>(Arrays.asList(
-                langMap.get(Utility.aboMenDes1), 
-                langMap.get(Utility.aboMenDes2), 
-                langMap.get(Utility.aboMenDes3), 
-                langMap.get(Utility.aboMenTit), 
+            new AboutMenu(this, isDarkMode, new ArrayList<String>(Arrays.asList(
+                langMap.get(Utility.aboMenDes1),
+                langMap.get(Utility.aboMenDes2),
+                langMap.get(Utility.aboMenDes3),
+                langMap.get(Utility.aboMenTit),
                 langMap.get(Utility.accept)
             )));
         }
 
-        // Font settings => Done
+        // Font settings
         if (e.getSource() == fontMenuItem) {
             HashMap<String, Font> fontMap = saveHandler.getFontMap();
             HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
@@ -385,9 +484,11 @@ public class MainWindow extends JFrame implements ActionListener {
         // Colour settings
         if (e.getSource() == colourMenuItem) {
 
+            new ColourMenu(this, saveHandler, "title", saveHandler.getDataMap().get(Utility.modeName)); // TODO: title
+
         }
 
-        // Language settings => Done
+        // Language settings
         if (e.getSource() == languageMenuItem) {
             new LanguageMenu(this, saveHandler, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.lanMenTit));
             applyTexts();
@@ -395,15 +496,15 @@ public class MainWindow extends JFrame implements ActionListener {
             tartarusPanel.applyTexts();
         }
 
-        // Encoders help menu => Done
+        // Encoders help menu
         if (e.getSource() == encodersHelpMenuItem) {
             HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            String tempLang = saveHandler.getDataMapLang();
             new EncoderHelpMenu(this, new ArrayList<String>(Arrays.asList(
-                saveHandler.getDataMapLang(), 
+                tempLang,
                 langMap.get(Utility.help), 
                 langMap.get(Utility.close)
             )));
-
         }
         // ------- </Menu clicks> -------
 

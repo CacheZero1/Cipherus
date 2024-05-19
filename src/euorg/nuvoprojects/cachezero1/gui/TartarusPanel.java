@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import euorg.nuvoprojects.cachezero1.Utility;
 import euorg.nuvoprojects.cachezero1.ciphers.tartarus.Tartarus;
@@ -67,7 +68,7 @@ public class TartarusPanel extends JPanel implements ActionListener {
     private JRadioButton decryptRadioButton;
     private ButtonGroup radioButtonOptionGroup;
 
-    public TartarusPanel(SaveHandler handler, LanguageHandler langHandler) {
+    public TartarusPanel(SaveHandler handler, LanguageHandler langHandler, Boolean isDarkmode) {
 
         // Settings
         this.setLayout(new BorderLayout());
@@ -83,6 +84,7 @@ public class TartarusPanel extends JPanel implements ActionListener {
         }
         applyTexts();
         applyFonts();
+        applyTheme(isDarkmode);
         addGUIComponents();
 
     }
@@ -138,9 +140,12 @@ public class TartarusPanel extends JPanel implements ActionListener {
 
         // Main components
         redRadioButton = new JRadioButton();
+        redRadioButton.setFocusable(false);
         redRadioButton.setSelected(true);
         greenRadioButton = new JRadioButton();
+        greenRadioButton.setFocusable(false);
         blueRadioButton = new JRadioButton();
+        blueRadioButton.setFocusable(false);
 
         colourRGBButtonGroup = new ButtonGroup();
         colourRGBButtonGroup.add(redRadioButton);
@@ -154,10 +159,13 @@ public class TartarusPanel extends JPanel implements ActionListener {
         inOutScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         imageChooserButton = new JButton();
+        imageChooserButton.setFocusable(false);
+        imageChooserButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         imageChooserButton.setHorizontalAlignment(JButton.CENTER);
         imageChooserButton.addActionListener(this);
 
         startButton = new JButton();
+        startButton.setFocusable(false);
         startButton.setHorizontalAlignment(JButton.CENTER);
         startButton.addActionListener(this);
 
@@ -258,6 +266,92 @@ public class TartarusPanel extends JPanel implements ActionListener {
         this.add(bottomPanel, BorderLayout.SOUTH);
 
     }
+
+    // Dark mode
+    private void applyTheme(Boolean isDarkMode) {
+
+        if (isDarkMode) {
+            // ------- <Set backgrounds> -------
+            // Panels
+            topPanel.setBackground(Utility.backgroundDark);
+            centerPanel.setBackground(Utility.backgroundDark);
+            bottomPanel.setBackground(Utility.backgroundDark);
+
+            preciseTL.setBackground(Utility.backgroundDark);
+            preciseTR.setBackground(Utility.backgroundDark);
+            preciseBL.setBackground(Utility.backgroundDark);
+            preicseBR.setBackground(Utility.backgroundDark);
+
+            topCenterPanel.setBackground(Utility.buttonDark);
+
+            // Text fields & areas
+            inOutTextArea.setBackground(Utility.optionBackgroundDark);
+            inOutTextArea.setCaretColor(Utility.textColourDarkmode);
+            inOutTextArea.setBorder(null);
+            inOutScrollPane.setBorder(null);
+            inOutScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                @Override 
+                protected void configureScrollBarColors(){
+                    this.thumbColor = Utility.sliderKnobDark;
+                    this.trackColor = Utility.sliderBarDark;
+                }
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    JButton button = super.createDecreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    JButton button = super.createIncreaseButton(orientation);
+                    button.setBackground(Utility.buttonDark);
+                    button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+                    button.setContentAreaFilled(false);
+                    return button;
+                }
+            });
+            inOutScrollPane.getVerticalScrollBar().getComponent(0).getParent().setBackground(Utility.backgroundDark); // Down button
+            inOutScrollPane.getVerticalScrollBar().getComponent(1).getParent().setBackground(Utility.backgroundDark); // Up button
+
+            // Buttons
+            redRadioButton.setBackground(Utility.backgroundDark);
+            greenRadioButton.setBackground(Utility.backgroundDark);
+            blueRadioButton.setBackground(Utility.backgroundDark);
+
+            imageChooserButton.setBackground(Utility.buttonDark);
+
+            startButton.setBackground(Utility.buttonDark);
+            startButton.setOpaque(true);
+            encryptRadioButton.setBackground(Utility.buttonDark);
+            decryptRadioButton.setBackground(Utility.buttonDark);
+            // ------- </Set backgrounds> -------
+
+            // ------- <Set text colour> -------
+            // Labels
+            colourRGBLabel.setForeground(Utility.textColourDarkmode);
+            redRadioButton.setForeground(Utility.textColourDarkmode);
+            greenRadioButton.setForeground(Utility.textColourDarkmode);
+            blueRadioButton.setForeground(Utility.textColourDarkmode);
+
+            // Text fields & areas
+            inOutTextArea.setForeground(Utility.textColourDarkmode);
+
+            // Buttons
+            startButton.setForeground(Utility.textColourDarkmode);
+            startButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            encryptRadioButton.setForeground(Utility.textColourDarkmode);
+            encryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/encrypt_w.png")));
+
+            decryptRadioButton.setForeground(Utility.textColourDarkmode);
+            decryptRadioButton.setIcon(new ImageIcon(this.getClass().getResource("/images/decrypt_w.png")));
+            // ------- </Set text colour> -------
+        }
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
