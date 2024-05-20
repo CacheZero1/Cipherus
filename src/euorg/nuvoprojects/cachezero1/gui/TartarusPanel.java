@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -17,7 +19,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -32,6 +33,7 @@ import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 public class TartarusPanel extends JPanel implements ActionListener {
 
     // Globals
+    private static Boolean darkMode;
     public BufferedImage image = new BufferedImage(256, 144, BufferedImage.TYPE_INT_RGB);
 
     // Settings
@@ -74,13 +76,15 @@ public class TartarusPanel extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         saveHandler = handler;
         languageHandler = langHandler;
+        darkMode = isDarkmode;
 
         // Populate Panel
         createPositioningComponents();
         try {
             createFunctionalComponents();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMapLang()).get(Utility.graErr), langHandler.getLangMap(handler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new ErrorPane(isDarkmode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.graErr), langMap.get(Utility.accept))));
         }
         applyTexts();
         applyFonts();
@@ -391,7 +395,8 @@ public class TartarusPanel extends JPanel implements ActionListener {
                     image = selectedImage;
                 } 
             } catch (Exception error) {
-                JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.reaFilErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+                HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+                new ErrorPane(darkMode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.reaFilErr), langMap.get(Utility.accept))));
             }   
         }
 
@@ -420,8 +425,8 @@ public class TartarusPanel extends JPanel implements ActionListener {
                     imagePreviewLabel.repaint();
                     
                 } catch (Exception encryptionError) {
-                    encryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.calErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+                    HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+                    new ErrorPane(darkMode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.calErr), langMap.get(Utility.accept))));
                 }
                 
             // Decrypt
@@ -435,8 +440,8 @@ public class TartarusPanel extends JPanel implements ActionListener {
                     inOutTextArea.setText(decrypted.strip());
 
                 } catch (Exception decryptionError) {
-                    decryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.calErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+                    HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+                    new ErrorPane(darkMode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.calErr), langMap.get(Utility.accept))));
                 }
 
             }

@@ -6,14 +6,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
 
-
-import javax.swing.JOptionPane;
-
 import euorg.nuvoprojects.cachezero1.Utility;
+import euorg.nuvoprojects.cachezero1.gui.ErrorPane;
 
 public class SaveHandler {
 
@@ -66,8 +66,8 @@ public class SaveHandler {
             }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, languageHandler.getLangMap(entryMap.get(Utility.langName)).get(Utility.wriFilErr), languageHandler.getLangMap(entryMap.get(Utility.langName)).get(Utility.majErr), JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            HashMap<String, String> langMap = languageHandler.getLangMap(this.getDataMapLang());
+            new ErrorPane(false, new ArrayList<String>(Arrays.asList(langMap.get(Utility.majErr), langMap.get(Utility.wriFilErr), langMap.get(Utility.accept))));
         }
     }
 
@@ -87,9 +87,9 @@ public class SaveHandler {
             });
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(Utility.reaFilErr), languageHandler.getLangMap(getLanguage()).get(Utility.majErr), JOptionPane.ERROR_MESSAGE);
+            HashMap<String, String> langMap = languageHandler.getLangMap(this.getDataMapLang());
+            new ErrorPane(false, new ArrayList<String>(Arrays.asList(langMap.get(Utility.majErr), langMap.get(Utility.reaFilErr), langMap.get(Utility.accept))));
             properties = new Properties();
-            e.printStackTrace();
         }
 
         return map;
@@ -171,8 +171,8 @@ public class SaveHandler {
             try {
                 saveFile.createNewFile();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(Utility.wriFilErr), languageHandler.getLangMap(getLanguage()).get(Utility.majErr), JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+                HashMap<String, String> langMap = languageHandler.getLangMap(this.getDataMapLang());
+                new ErrorPane(false, new ArrayList<String>(Arrays.asList(langMap.get(Utility.majErr), langMap.get(Utility.wriFilErr), langMap.get(Utility.accept))));
             }
 
             // Create default mappings
@@ -196,8 +196,8 @@ public class SaveHandler {
                 fontMap.put(Utility.inputFontName, new Font(stored.get(Utility.inputFamilyName), Integer.valueOf(stored.get(Utility.inputStyleName)), Integer.valueOf(stored.get(Utility.inputSizeName))));
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, languageHandler.getLangMap(getLanguage()).get(Utility.reaFilErr), languageHandler.getLangMap(getLanguage()).get(Utility.majErr), JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+                HashMap<String, String> langMap = languageHandler.getLangMap(this.getDataMapLang());
+                new ErrorPane(false, new ArrayList<String>(Arrays.asList(langMap.get(Utility.majErr), langMap.get(Utility.reaFilErr), langMap.get(Utility.accept))));
             }
 
         }

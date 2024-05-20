@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -26,6 +27,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import euorg.nuvoprojects.cachezero1.Utility;
 import euorg.nuvoprojects.cachezero1.gui.CustomFileChooser;
+import euorg.nuvoprojects.cachezero1.gui.ErrorPane;
 
 public class SaveTextMenu extends JOptionPane implements ActionListener {
 
@@ -298,8 +300,8 @@ public class SaveTextMenu extends JOptionPane implements ActionListener {
                     writer.println(textArea.getText());
                     
                 } catch (Exception writeException) {
-                    
-                    JOptionPane.showMessageDialog(null, stringMap.get(4), stringMap.get(5), JOptionPane.ERROR_MESSAGE);
+
+                    new ErrorPane(false, new ArrayList<String>(Arrays.asList(stringMap.get(5), stringMap.get(4), stringMap.get(7))));
 
                 } finally {
 

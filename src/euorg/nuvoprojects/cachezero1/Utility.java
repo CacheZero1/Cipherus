@@ -57,7 +57,6 @@ public class Utility {
     public static final String menCol = "maiWinMenCol";
     public static final String menLan = "maiWinMenLan";
     public static final String menCip = "maiWinMenCip";
-    public static final String menNav = "maiWinMenNav";
 
     // Cryptor Panel
     public static final String cryPanFor = "cryPanFor";

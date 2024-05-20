@@ -59,8 +59,6 @@ public class LanguageHandler {
             }
 
             properties = new Properties();
-
-            e.printStackTrace();
         }
 
         return map;

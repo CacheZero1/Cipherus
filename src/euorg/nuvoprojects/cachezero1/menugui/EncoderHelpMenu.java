@@ -156,9 +156,12 @@ public class EncoderHelpMenu extends JOptionPane implements ActionListener {
         if (e.getSource() == cryptorButton) {
             try {
                 java.awt.Desktop.getDesktop().browse(new URI("https://github.com/CacheZero1/Cipherus/blob/master/assets/cryptor_docu_" + langString + ".pdf"));
-            } catch (Exception error) {
-                
-            }
+            } catch (Exception error) {}
+        }
+        if (e.getSource() == tartarusButton) {
+            try {
+                java.awt.Desktop.getDesktop().browse(new URI("https://github.com/CacheZero1/Cipherus/blob/master/assets/tartarus_docu_" + langString + ".pdf"));
+            } catch (Exception error) {}
         }
     }
 

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -25,6 +26,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import euorg.nuvoprojects.cachezero1.Utility;
 import euorg.nuvoprojects.cachezero1.gui.CustomFileChooser;
+import euorg.nuvoprojects.cachezero1.gui.ErrorPane;
 
 
 
@@ -222,9 +224,7 @@ public class SaveImageMenu extends JOptionPane implements ActionListener {
                     ImageIO.write(parsedImage, "png", file);
                     
                 } catch (Exception writeException) {
-                    
-                    JOptionPane.showMessageDialog(null, stringMap.get(2), stringMap.get(3), JOptionPane.ERROR_MESSAGE);
-
+                    new ErrorPane(isDarkMode, new ArrayList<String>(Arrays.asList(stringMap.get(3), stringMap.get(2), stringMap.get(5))));
                 }
             }
         }

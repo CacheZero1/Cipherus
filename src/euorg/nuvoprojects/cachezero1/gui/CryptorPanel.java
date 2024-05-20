@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -13,7 +15,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -31,6 +32,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
     // Settings
     private static SaveHandler saveHandler;
     private static LanguageHandler languageHandler;
+
+    private static Boolean darkMode;
 
     // Components (Positioning)
     JPanel topPanel;
@@ -68,13 +71,15 @@ public class CryptorPanel extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         saveHandler = handler;
         languageHandler = langHandler;
+        darkMode = isDarkmode;
 
         // Populate Panel
         createPositioningComponents();
         try {
             createFunctionalComponents();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMapLang()).get(Utility.graErr), langHandler.getLangMap(handler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new ErrorPane(isDarkmode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.graErr), langMap.get(Utility.accept))));
         }
         applyTexts();
         applyFonts();
@@ -413,8 +418,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     cipheredTextArea.setText(encrypted);
                     
                 } catch (Exception encryptionError) {
-                    encryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.calErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+                    HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+                    new ErrorPane(darkMode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.calErr), langMap.get(Utility.accept))));
                 }
                 
             // Decrypt
@@ -428,8 +433,8 @@ public class CryptorPanel extends JPanel implements ActionListener {
                     cipheredTextArea.setText(decrypted);
 
                 } catch (Exception decryptionError) {
-                    decryptionError.printStackTrace();
-                    JOptionPane.showMessageDialog(null, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.calErr), languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+                    HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+                    new ErrorPane(darkMode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.calErr), langMap.get(Utility.accept))));
                 }
 
             }

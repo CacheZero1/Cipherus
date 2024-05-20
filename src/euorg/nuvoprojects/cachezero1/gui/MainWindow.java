@@ -19,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -65,7 +64,6 @@ public class MainWindow extends JFrame implements ActionListener {
     //
     private JMenu helpMenu;
     private JMenuItem encodersHelpMenuItem;
-    private JMenuItem applicationHelpMenuItem;
 
     // Components (Positioning)
     JPanel leftPanel;
@@ -108,7 +106,8 @@ public class MainWindow extends JFrame implements ActionListener {
         try {
             this.setIconImage(ImageIO.read(getClass().getResource("/images/icon_128px.png")));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, langHandler.getLangMap(handler.getDataMapLang()).get(Utility.graErr), langHandler.getLangMap(handler.getDataMapLang()).get(Utility.minErr), JOptionPane.ERROR_MESSAGE);
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new ErrorPane(darkMode, new ArrayList<String>(Arrays.asList(langMap.get(Utility.minErr), langMap.get(Utility.graErr), langMap.get(Utility.accept))));
         }
 
         // Instances
@@ -150,10 +149,9 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Help
         encodersHelpMenuItem = new JMenuItem();
-        applicationHelpMenuItem = new JMenuItem();
 
 
-        // ActionListeners //TODO: add functionalities to other menus
+        // ActionListeners
         saveTextMenuItem.addActionListener(this);
         saveImageMenuItem.addActionListener(this);
         aboutMenuItem.addActionListener(this);
@@ -164,7 +162,6 @@ public class MainWindow extends JFrame implements ActionListener {
         languageMenuItem.addActionListener(this);
 
         encodersHelpMenuItem.addActionListener(this);
-        applicationHelpMenuItem.addActionListener(this);
 
     }
 
@@ -222,7 +219,6 @@ public class MainWindow extends JFrame implements ActionListener {
         settingsMenu.add(languageMenuItem);
 
         helpMenu.add(encodersHelpMenuItem);
-        helpMenu.add(applicationHelpMenuItem);
 
         menuBar.add(cipherusMenu);
         menuBar.add(settingsMenu);
@@ -263,7 +259,6 @@ public class MainWindow extends JFrame implements ActionListener {
         languageMenuItem.setText(textMap.get(Utility.menLan));
 
         encodersHelpMenuItem.setText(textMap.get(Utility.menCip));
-        applicationHelpMenuItem.setText(textMap.get(Utility.menNav));
 
     }
 
@@ -299,7 +294,6 @@ public class MainWindow extends JFrame implements ActionListener {
             languageMenuItem.setBackground(Utility.titlebarDark);
 
             encodersHelpMenuItem.setBackground(Utility.titlebarDark);
-            applicationHelpMenuItem.setBackground(Utility.titlebarDark);
             
             // General & Panels
             this.getRootPane().setBackground(Utility.backgroundDark);
@@ -358,7 +352,6 @@ public class MainWindow extends JFrame implements ActionListener {
             languageMenuItem.setForeground(Utility.textColourDarkmode);
 
             encodersHelpMenuItem.setForeground(Utility.textColourDarkmode);
-            applicationHelpMenuItem.setForeground(Utility.textColourDarkmode);
 
             // Buttons
             tartarusButton.setForeground(Utility.textColourDarkmode);
@@ -409,7 +402,8 @@ public class MainWindow extends JFrame implements ActionListener {
                         textMap.get(Utility.savTexRig),
                         textMap.get(Utility.savFilErr),
                         textMap.get(Utility.majErr),
-                        textMap.get(Utility.close)
+                        textMap.get(Utility.close),
+                        textMap.get(Utility.accept)
                     )));
                     break;
 
@@ -421,7 +415,8 @@ public class MainWindow extends JFrame implements ActionListener {
                         textMap.get(Utility.savTexRig),
                         textMap.get(Utility.savFilErr),
                         textMap.get(Utility.majErr),
-                        textMap.get(Utility.close)
+                        textMap.get(Utility.close),
+                        textMap.get(Utility.accept)
                     )));
                     break;
 
@@ -438,7 +433,8 @@ public class MainWindow extends JFrame implements ActionListener {
                 textMap.get(Utility.savTexSav),
                 textMap.get(Utility.savFilErr),
                 textMap.get(Utility.majErr),
-                textMap.get(Utility.close)
+                textMap.get(Utility.close),
+                textMap.get(Utility.accept)
             )));
         }
 
