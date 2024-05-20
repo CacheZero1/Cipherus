@@ -491,7 +491,12 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Language settings
         if (e.getSource() == languageMenuItem) {
-            new LanguageMenu(this, saveHandler, languageHandler.getLangMap(saveHandler.getDataMapLang()).get(Utility.lanMenTit));
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new LanguageMenu(this, isDarkMode, saveHandler, new ArrayList<String>(Arrays.asList(
+                langMap.get(Utility.lanMenTit),
+                langMap.get(Utility.accept),
+                langMap.get(Utility.cancel)
+            )));
             applyTexts();
             cryptorPanel.applyTexts();
             tartarusPanel.applyTexts();
@@ -501,7 +506,7 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getSource() == encodersHelpMenuItem) {
             HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
             String tempLang = saveHandler.getDataMapLang();
-            new EncoderHelpMenu(this, new ArrayList<String>(Arrays.asList(
+            new EncoderHelpMenu(this, isDarkMode, new ArrayList<String>(Arrays.asList(
                 tempLang,
                 langMap.get(Utility.help), 
                 langMap.get(Utility.close)

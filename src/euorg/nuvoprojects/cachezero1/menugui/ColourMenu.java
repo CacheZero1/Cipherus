@@ -105,8 +105,6 @@ public class ColourMenu extends JOptionPane {
         applyTheme(isDarkMode);
 
         // Adding
-        
-
         mainPanel.add(lightModeRadioButton);
         mainPanel.add(darkModeRadioButton);
 
