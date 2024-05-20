@@ -51,4 +51,4 @@ Here's what you can expect from Cipherus:
 
 ## License
 
-[Cipherus](https://github.com/CacheZero1/Cipherus) © 2024 by [CacheZero1](https://github.com/CacheZero1) is licensed under [Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1)
+[Cipherus](https://github.com/CacheZero1/Cipherus) © 2024 by [CacheZero1](https://github.com/CacheZero1) is licensed under MIT
