@@ -66,23 +66,23 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenuItem encodersHelpMenuItem;
 
     // Components (Positioning)
-    JPanel leftPanel;
-    JPanel rightPanel;
-    JPanel centerPanel;
-    JScrollPane leftScrollPane;
-    GridBagConstraints gbc;
+    private JPanel leftPanel;
+    private JPanel rightPanel;
+    private JPanel centerPanel;
+    private JScrollPane leftScrollPane;
+    private GridBagConstraints gbc;
 
     // Components (Functional)
-    JButton cryptorButton;
-    JButton tartarusButton;
+    private JButton cryptorButton;
+    private JButton tartarusButton;
 
     // Instances (Ciphers)
-    CryptorPanel cryptorPanel;
-    TartarusPanel tartarusPanel;
+    private CryptorPanel cryptorPanel;
+    private TartarusPanel tartarusPanel;
 
     // Instances (Menus)
-    SaveTextMenu saveTextMenu;
-    SaveImageMenu saveImageMenu;
+    protected SaveTextMenu saveTextMenu;
+    protected SaveImageMenu saveImageMenu;
     
 
     public MainWindow(String version, SaveHandler handler, LanguageHandler langHandler, Boolean darkMode) {
@@ -482,7 +482,13 @@ public class MainWindow extends JFrame implements ActionListener {
         // Colour settings
         if (e.getSource() == colourMenuItem) {
             HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
-            new ColourMenu(this, isDarkMode, saveHandler, new ArrayList<String>(Arrays.asList(langMap.get(Utility.colMenTit), langMap.get(Utility.accept), langMap.get(Utility.cancel))));
+            new ColourMenu(this, isDarkMode, saveHandler, new ArrayList<String>(Arrays.asList(
+                langMap.get(Utility.colMenTit), 
+                langMap.get(Utility.accept), 
+                langMap.get(Utility.cancel),
+                langMap.get(Utility.info),
+                langMap.get(Utility.colMenRes)
+            )));
         }
 
         // Language settings

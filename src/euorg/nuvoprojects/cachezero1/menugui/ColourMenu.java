@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import euorg.nuvoprojects.cachezero1.Utility;
+import euorg.nuvoprojects.cachezero1.gui.InfoPane;
 import euorg.nuvoprojects.cachezero1.literates.SaveHandler;
 
 public class ColourMenu extends JOptionPane {
@@ -56,7 +58,9 @@ public class ColourMenu extends JOptionPane {
             
             saveHandler.applyChanges(saveHandler.getFontMap(), newLangMap);
 
-        } // TODO: JOPtion pane restart information message
+            new InfoPane(isDarkMode, new ArrayList<String>(Arrays.asList(stringList.get(3), stringList.get(4), stringList.get(1))));
+
+        }
 
     }
 

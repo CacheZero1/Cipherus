@@ -21,7 +21,7 @@ public class Main {
          * License: MIT
         */
 
-        final String version = "v0.9";
+        final String version = "v1.0";
 
 
         // Create save

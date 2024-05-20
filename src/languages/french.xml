@@ -51,8 +51,10 @@
 <entry key="aboMenDes3">Cipherus © 2024 par CacheZero1 est sous licence MIT</entry>
 <entry key="lanMenTit">Paramètres de langue</entry>
 <entry key="colMenTit">Paramètres de couleur</entry>
+<entry key="colMenRes">Les modifications s'appliqueront après un redémarrage</entry>
 <entry key="accept">D'accord</entry>
 <entry key="close">Fermer</entry>
 <entry key="help">Aide</entry>
 <entry key="cancel">Annuler</entry>
+<entry key="info">Attention!</entry>
 </properties>

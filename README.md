@@ -28,7 +28,7 @@
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/cachezero1/)
 [![Website](https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://nuvoprojects.eu.org)
 
-Encrypt and decrypt messages, be it in Text-format, or in Image-format*. <br>
+Encrypt and decrypt messages, be it in Text-format, or in Image-format. <br>
 All within a GUI, made to (hopefully) impress.
 
 
@@ -40,7 +40,7 @@ Here's what you can expect from Cipherus:
 * Modern GUI
 * Built with Java
 * Text encryptions & decryptions
-* Image encryptions & decryptions*
+* Image encryptions & decryptions
 * Formula encryptions & decryptions
 
 

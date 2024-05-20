@@ -95,6 +95,7 @@ public class Utility {
     public static final String aboMenDes3 = "aboMenDes3";
     public static final String lanMenTit = "lanMenTit";
     public static final String colMenTit = "colMenTit";
+    public static final String colMenRes = "colMenRes";
 
     // Save Image Menu
     public static final String savImgSavImg = "savImgSavImg";
@@ -104,6 +105,7 @@ public class Utility {
     public static final String close = "close";
     public static final String help = "help";
     public static final String cancel = "cancel";
+    public static final String info = "info";
     // ------- </Getters> -------
 
     // ------- <Uniques> -------

@@ -36,17 +36,17 @@ public class CryptorPanel extends JPanel implements ActionListener {
     private static Boolean darkMode;
 
     // Components (Positioning)
-    JPanel topPanel;
-    JPanel centerPanel;
-    JPanel bottomPanel;
+    private JPanel topPanel;
+    private JPanel centerPanel;
+    private JPanel bottomPanel;
 
-    JPanel preciseTL;
-    JPanel preciseTR;
-    JPanel preciseBL;
-    JPanel preicseBR;
+    private JPanel preciseTL;
+    private JPanel preciseTR;
+    private JPanel preciseBL;
+    private JPanel preicseBR;
 
-    JPanel leftCenterPanel;
-    JPanel rightCenterPanel;
+    private JPanel leftCenterPanel;
+    private JPanel rightCenterPanel;
 
     // Components (Functional)
     private JLabel formulaLabel;
