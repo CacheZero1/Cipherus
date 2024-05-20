@@ -458,7 +458,7 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getSource() == fontMenuItem) {
             HashMap<String, Font> fontMap = saveHandler.getFontMap();
             HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
-            new FontMenu(this, saveHandler, new ArrayList<Font>(Arrays.asList(
+            new FontMenu(this, isDarkMode, saveHandler, new ArrayList<Font>(Arrays.asList(
                 fontMap.get(Utility.titleFontName), 
                 fontMap.get(Utility.subtitleFontName), 
                 fontMap.get(Utility.selectionFontName), 
@@ -474,7 +474,9 @@ public class MainWindow extends JFrame implements ActionListener {
                 langMap.get(Utility.fonMenTit),
                 langMap.get(Utility.fonMenSub),
                 langMap.get(Utility.fonMenSel),
-                langMap.get(Utility.fonMenInp)
+                langMap.get(Utility.fonMenInp),
+                langMap.get(Utility.accept),
+                langMap.get(Utility.cancel)
             )));
             applyFont();
             cryptorPanel.applyFonts();
@@ -483,9 +485,8 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // Colour settings
         if (e.getSource() == colourMenuItem) {
-
-            new ColourMenu(this, saveHandler, "title", saveHandler.getDataMap().get(Utility.modeName)); // TODO: title
-
+            HashMap<String, String> langMap = languageHandler.getLangMap(saveHandler.getDataMapLang());
+            new ColourMenu(this, isDarkMode, saveHandler, new ArrayList<String>(Arrays.asList(langMap.get(Utility.colMenTit), langMap.get(Utility.accept), langMap.get(Utility.cancel))));
         }
 
         // Language settings

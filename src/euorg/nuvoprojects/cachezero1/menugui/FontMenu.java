@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -67,6 +68,10 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     private JPanel panel34 = new JPanel();
 
     // ------- <Functional components> -------
+    // Buttons
+    private JButton okButton;
+    private JButton cancelButton;
+
     // Labels
     JLabel familyLabel;
     JLabel styleLabel;
@@ -96,7 +101,7 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     // ------- </Functional components> -------
 
     // Start
-    public FontMenu(Component parent, SaveHandler saveHandler, ArrayList<Font> fontList, ArrayList<String> stringList) {
+    public FontMenu(Component parent, Boolean isDarkMode, SaveHandler saveHandler, ArrayList<Font> fontList, ArrayList<String> stringList) {
 
         stringMap = stringList;
 
@@ -112,19 +117,18 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         // Create panel
         createPositioning();
         createFunctionals();
-        addPanels();
+        applyTheme(isDarkMode);
+        addPanels(isDarkMode);
 
         // Show popup
-        int chosenOption = FontMenu.showConfirmDialog(
-            parent, 
-            mainPanel, 
-            stringList.get(0), 
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.PLAIN_MESSAGE
-        );
+        this.createDialog(
+            parent,
+            stringList.get(0)
+        ).setVisible(true);
+        
 
         // Apply new fonts
-        if (chosenOption == JOptionPane.OK_OPTION) {
+        if ((int) this.getValue() == JOptionPane.OK_OPTION) {
 
             HashMap<String, Font> newFontMap = new HashMap<String, Font>();
 
@@ -166,6 +170,19 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
     // Create functionals & assign fonts
     private void createFunctionals() {
 
+        // Buttons
+        okButton = new JButton(stringMap.get(11));
+        okButton.setFocusable(false);
+        okButton.addActionListener(event -> {
+            this.setValue(JOptionPane.OK_OPTION);
+        });
+
+        cancelButton = new JButton(stringMap.get(12));
+        cancelButton.setFocusable(false);
+        cancelButton.addActionListener(event -> {
+            this.setValue(JOptionPane.CANCEL_OPTION);
+        });
+
         // Labels
         familyLabel.setFont(globalFont);
         styleLabel.setFont(globalFont);
@@ -178,27 +195,35 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
 
         // ComboBoxes
         titleFamilyBox.setSelectedItem(titleFont.getFamily());
+        titleFamilyBox.setFocusable(false);
         titleFamilyBox.addActionListener(this);
 
         titleStyleBox.setSelectedItem(determineStyleName(titleFont.getStyle()));
+        titleStyleBox.setFocusable(false);
         titleStyleBox.addActionListener(this);
 
         subtitleFamilyBox.setSelectedItem(subtitleFont.getFamily());
+        subtitleFamilyBox.setFocusable(false);
         subtitleFamilyBox.addActionListener(this);
 
         subtitleStyleBox.setSelectedItem(determineStyleName(subtitleFont.getStyle()));
+        subtitleStyleBox.setFocusable(false);
         subtitleStyleBox.addActionListener(this);
 
         selectionFamilyBox.setSelectedItem(selectionFont.getFamily());
+        selectionFamilyBox.setFocusable(false);
         selectionFamilyBox.addActionListener(this);
 
         selectionStyleBox.setSelectedItem(determineStyleName(selectionFont.getStyle()));
+        selectionStyleBox.setFocusable(false);
         selectionStyleBox.addActionListener(this);
 
         inputFamilyBox.setSelectedItem(inputFont.getFamily());
+        inputFamilyBox.setFocusable(false);
         inputFamilyBox.addActionListener(this);
 
         inputStyleBox.setSelectedItem(determineStyleName(inputFont.getStyle()));
+        inputStyleBox.setFocusable(false);
         inputStyleBox.addActionListener(this);
 
         // Sliders
@@ -224,8 +249,111 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         
     }
 
+    // Dark mode
+    private void applyTheme(Boolean isDarkMode) {
+        if (isDarkMode) {
+            // ------- <Set backgrounds> -------
+            // General & Panels
+            mainPanel.setOpaque(true);
+            this.setBackground(Utility.optionBackgroundDark);
+            mainPanel.setBackground(Utility.optionBackgroundDark);
+
+            panel00.setBackground(Utility.optionBackgroundDark);
+            familyPanel.setBackground(Utility.optionBackgroundDark);
+            stylePanel.setBackground(Utility.optionBackgroundDark);
+            sizePanel.setBackground(Utility.optionBackgroundDark);
+
+            titlePanel.setBackground(Utility.optionBackgroundDark);
+            panel11.setBackground(Utility.optionBackgroundDark);
+            panel21.setBackground(Utility.optionBackgroundDark);
+            panel31.setBackground(Utility.optionBackgroundDark);
+
+            subtitlePanel.setBackground(Utility.optionBackgroundDark);
+            panel12.setBackground(Utility.optionBackgroundDark);
+            panel22.setBackground(Utility.optionBackgroundDark);
+            panel32.setBackground(Utility.optionBackgroundDark);
+
+            selectionPanel.setBackground(Utility.optionBackgroundDark);
+            panel13.setBackground(Utility.optionBackgroundDark);
+            panel23.setBackground(Utility.optionBackgroundDark);
+            panel33.setBackground(Utility.optionBackgroundDark);
+
+            inputPanel.setBackground(Utility.optionBackgroundDark);
+            panel14.setBackground(Utility.optionBackgroundDark);
+            panel24.setBackground(Utility.optionBackgroundDark);
+            panel34.setBackground(Utility.optionBackgroundDark);
+
+            // ComboBox
+            titleFamilyBox.setBackground(Utility.comboboxDark);
+            titleFamilyBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            subtitleFamilyBox.setBackground(Utility.comboboxDark);
+            subtitleFamilyBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            selectionFamilyBox.setBackground(Utility.comboboxDark);
+            selectionFamilyBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            inputFamilyBox.setBackground(Utility.comboboxDark);
+            inputFamilyBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            titleStyleBox.setBackground(Utility.comboboxDark);
+            titleStyleBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            subtitleStyleBox.setBackground(Utility.comboboxDark);
+            subtitleStyleBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            selectionStyleBox.setBackground(Utility.comboboxDark);
+            subtitleStyleBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            inputStyleBox.setBackground(Utility.comboboxDark);
+            subtitleStyleBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            // Sliders
+            titleSizeSlider.setBackground(Utility.optionBackgroundDark);
+            subtitleSizeSlider.setBackground(Utility.optionBackgroundDark);
+            selectionSizeSlider.setBackground(Utility.optionBackgroundDark);
+            inputSizeSlider.setBackground(Utility.optionBackgroundDark);
+
+            // Buttons
+            okButton.setBackground(Utility.buttonDark);
+            okButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            cancelButton.setBackground(Utility.buttonDark);
+            cancelButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            // ------- </Set backgrounds> -------
+
+            // ------- <Set text colour> -------
+            // Buttons
+            okButton.setForeground(Utility.textColourDarkmode);
+            cancelButton.setForeground(Utility.textColourDarkmode);
+
+            // Labels
+            familyLabel.setForeground(Utility.textColourDarkmode);
+            styleLabel.setForeground(Utility.textColourDarkmode);
+            sizeLabel.setForeground(Utility.textColourDarkmode);
+
+            titleLabel.setForeground(Utility.textColourDarkmode);
+            subtitleLabel.setForeground(Utility.textColourDarkmode);
+            selectionLabel.setForeground(Utility.textColourDarkmode);
+            inputLabel.setForeground(Utility.textColourDarkmode);
+
+            // ComboBoxes
+            titleFamilyBox.setForeground(Utility.textColourDarkmode);
+            subtitleFamilyBox.setForeground(Utility.textColourDarkmode);
+            selectionFamilyBox.setForeground(Utility.textColourDarkmode);
+            inputFamilyBox.setForeground(Utility.textColourDarkmode);
+
+            titleStyleBox.setForeground(Utility.textColourDarkmode);
+            subtitleStyleBox.setForeground(Utility.textColourDarkmode);
+            selectionStyleBox.setForeground(Utility.textColourDarkmode);
+            inputStyleBox.setForeground(Utility.textColourDarkmode);
+            // ------- </Set text colour> -------
+
+        }
+    }
+
     // Addition
-    private void addPanels() {
+    private void addPanels(Boolean isDarkMode) {
 
         // ------- <Add to panels> -------
         // Labels
@@ -287,6 +415,13 @@ public class FontMenu extends JOptionPane implements ActionListener, ChangeListe
         selectionFamilyBox.setPreferredSize(new Dimension(200, ((Double) selectionFamilyBox.getPreferredSize().getHeight()).intValue()));
         inputFamilyBox.setPreferredSize(new Dimension(200, ((Double) inputFamilyBox.getPreferredSize().getHeight()).intValue()));
         // ------- </Add to panels> -------
+
+        this.setMessage(mainPanel);
+        this.setOptions(new Object[]{okButton, cancelButton});
+
+        if (isDarkMode) {
+            ((JButton) this.getOptions()[0]).getParent().setBackground(Utility.optionBackgroundDark);
+        }
 
     }
 

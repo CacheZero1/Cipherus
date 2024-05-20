@@ -18,7 +18,7 @@ public class Main {
         /*
          * Date of creation: 22.02.2024
          * Developers: CacheZero1
-         * License: CC-BY
+         * License: MIT
         */
 
         final String version = "v0.9";
