@@ -32,7 +32,6 @@ Encrypt and decrypt messages, be it in Text-format, or in Image-format. <br>
 All within a GUI, made to (hopefully) impress.
 
 
-
 ## Features
 
 Here's what you can expect from Cipherus:
