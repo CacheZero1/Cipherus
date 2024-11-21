@@ -12,6 +12,12 @@
 [![Downloads](https://img.shields.io/github/downloads/CacheZero1/Cipherus/total.svg)]()
 [![License](https://img.shields.io/github/license/CacheZero1/Cipherus.svg)]()
 
+<h1>Hey Cipherus Users! 👋</h1>
+I’ve got some updates about Cipherus. First off, I just want to say a huge thanks to everyone who’s tried out the project. I know Cipherus isn’t perfect—I’m just an amateur dev figuring things out as I go—but it’s been amazing to see people use something I’ve worked on. ❤️<br />
+That said, Cipherus will soon get its final update here on GitHub. After that, it won’t be updated or maintained on this platform anymore. Instead, I’m moving it to a new website I’m building. It’s nothing fancy (yet!), but it’ll be the new home for Cipherus, and I’ll keep improving it there, along with all of my future project.<br />
+I’ll share more details about the site once it’s ready (might take about a year though...), so you can follow along if you’re still interested. Thanks again for all your support—it means a lot to me as a solo dev just trying to create something useful.<br />
+Stay tuned, and feel free to reach out with any questions or feedback on the issues tab!
+
 ## Index
 
 - [Information](#information)
