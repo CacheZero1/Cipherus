@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="./src/images/icon_128px.png" width="128"/>
-</p>
-
 <h1 align="center"> Cipherus </h1> <br>
 
 <p align="center">
@@ -11,6 +7,12 @@
 [![Release](https://img.shields.io/github/release/CacheZero1/Cipherus.svg)]()
 [![Downloads](https://img.shields.io/github/downloads/CacheZero1/Cipherus/total.svg)]()
 [![License](https://img.shields.io/github/license/CacheZero1/Cipherus.svg)]()
+
+---
+
+Please head over to [CodeBerg](https://codeberg.org/CacheZero1/Cipherus)
+
+---
 
 <h1>Hey Cipherus Users! 👋</h1>
 I’ve got some updates about Cipherus. First off, I just want to say a huge thanks to everyone who’s tried out the project. I know Cipherus isn’t perfect—I’m just an amateur dev figuring things out as I go—but it’s been amazing to see people use something I’ve worked on. ❤️<br />
